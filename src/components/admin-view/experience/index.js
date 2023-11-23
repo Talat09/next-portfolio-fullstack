@@ -38,10 +38,24 @@ export default function AdminExperienceView({
   formData,
   setFormData,
   handleSaveData,
+  data,
 }) {
   return (
     <div className="w-full">
       <div className="bg-[#ffffff] shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
+        <div className="mb-10">
+          {data && data.length
+            ? data.map((item) => (
+                <div className="flex flex-col gap-4 border p-4 border-green-700">
+                  <p>{item.position}</p>
+                  <p>{item.company}</p>
+                  <p>{item.duration}</p>
+                  <p>{item.location}</p>
+                  <p>{item.jobprofile}</p>
+                </div>
+              ))
+            : null}
+        </div>
         <FormControls
           controls={controls}
           formData={formData}
