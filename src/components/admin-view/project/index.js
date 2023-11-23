@@ -28,7 +28,11 @@ const controls = [
     label: "github",
   },
 ];
-export default function AdminProjectView({ formData, setFormData }) {
+export default function AdminProjectView({
+  formData,
+  setFormData,
+  handleSaveData,
+}) {
   return (
     <div className="w-full">
       <div className="bg-[#ffffff] shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
@@ -37,7 +41,10 @@ export default function AdminProjectView({ formData, setFormData }) {
           formData={formData}
           setFormData={setFormData}
         />
-        <button className="mt-[10px] border border-green-600 p-4 font-bold text-[16px] rounded-md">
+        <button
+          onClick={() => handleSaveData("project")}
+          className="mt-[10px] border border-green-600 p-4 font-bold text-[16px] rounded-md"
+        >
           Add Info
         </button>
       </div>

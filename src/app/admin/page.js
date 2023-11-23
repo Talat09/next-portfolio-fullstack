@@ -6,6 +6,7 @@ import AdminEducationView from "@/components/admin-view/education";
 import AdminExperienceView from "@/components/admin-view/experience";
 import AdminHomeView from "@/components/admin-view/home";
 import AdminProjectView from "@/components/admin-view/project";
+import { addData } from "@/services";
 import { useState } from "react";
 
 const initialHomeFormData = {
@@ -62,6 +63,7 @@ export default function AdminView() {
         <AdminHomeView
           formData={homeViewFormData}
           setFormData={setHomeViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -72,6 +74,7 @@ export default function AdminView() {
         <AdminAboutView
           formData={aboutViewFormData}
           setFormData={setAboutViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -82,6 +85,7 @@ export default function AdminView() {
         <AdminExperienceView
           formData={experienceViewFormData}
           setFormData={setExperienceViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -92,6 +96,7 @@ export default function AdminView() {
         <AdminEducationView
           formData={educationViewFormData}
           setFormData={setEducationViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -102,6 +107,7 @@ export default function AdminView() {
         <AdminProjectView
           formData={projectViewFormData}
           setFormData={setProjectViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -112,6 +118,20 @@ export default function AdminView() {
     },
   ];
 
+  async function handleSaveData() {
+    const dataMap = {
+      home: homeViewFormData,
+      about: aboutViewFormData,
+      education: educationViewFormData,
+      experience: experienceViewFormData,
+      project: projectViewFormData,
+    };
+    const response = await addData(
+      currentSelectedTab,
+      dataMap[currentSelectedTab]
+    );
+    console.log(response, "response");
+  }
   return (
     <div className="border-b border-gray-200">
       <nav className="-mb-0.5 flex justify-center space-x-6" role="tablist">
