@@ -81,7 +81,7 @@ export default function AdminView() {
       component: (
         <AdminExperienceView
           formData={experienceViewFormData}
-          setFormData={setHomeViewFormData}
+          setFormData={setExperienceViewFormData}
         />
       ),
     },
