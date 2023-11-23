@@ -4,13 +4,25 @@ import FormControls from "../form-controls";
 
 const controls = [
   {
-    name: "yearsofexperience",
+    name: "aboutme",
+    placeholder: "About Me",
+    type: "text",
+    label: "About Me",
+  },
+  {
+    name: "noofprojects",
+    placeholder: "No of projects",
+    type: "text",
+    label: "Enter no of projects",
+  },
+  {
+    name: "yearofexperience",
     placeholder: "No of experience",
     type: "text",
     label: "Enter no of experience",
   },
   {
-    name: "noofclient",
+    name: "noofclients",
     placeholder: "No of clients",
     type: "text",
     label: "Enter no of clients",
