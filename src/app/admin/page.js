@@ -12,9 +12,48 @@ const initialHomeFormData = {
   heading: "",
   summary: "",
 };
+const initialAboutFormData = {
+  aboutme: "",
+  noofprojects: "",
+  yearofexperience: "",
+  noofclients: "",
+  skills: "",
+};
+
+const initialExperienceFormData = {
+  position: "",
+  company: "",
+  duration: "",
+  location: "",
+  jobprofile: "",
+};
+
+const initialEducationFormData = {
+  degree: "",
+  year: "",
+  college: "",
+};
+
+const initialProjectFormData = {
+  name: "",
+  website: "",
+  technologies: "",
+  github: "",
+};
 export default function AdminView() {
   const [currentSelectedTab, setCurrentSelectedTab] = useState("home");
   const [homeViewFormData, setHomeViewFormData] = useState(initialHomeFormData);
+  const [aboutViewFormData, setAboutViewFormData] =
+    useState(initialAboutFormData);
+  const [experienceViewFormData, setExperienceViewFormData] = useState(
+    initialExperienceFormData
+  );
+  const [educationViewFormData, setEducationViewFormData] = useState(
+    initialEducationFormData
+  );
+  const [projectViewFormData, setProjectViewFormData] = useState(
+    initialProjectFormData
+  );
   const menuItems = [
     {
       id: "home",
@@ -29,22 +68,42 @@ export default function AdminView() {
     {
       id: "about",
       label: "About",
-      component: <AdminAboutView />,
+      component: (
+        <AdminAboutView
+          formData={aboutViewFormData}
+          setFormData={setAboutViewFormData}
+        />
+      ),
     },
     {
       id: "experience",
       label: "Experience",
-      component: <AdminExperienceView />,
+      component: (
+        <AdminExperienceView
+          formData={experienceViewFormData}
+          setFormData={setHomeViewFormData}
+        />
+      ),
     },
     {
       id: "education",
       label: "Education",
-      component: <AdminEducationView />,
+      component: (
+        <AdminEducationView
+          formData={educationViewFormData}
+          setFormData={setEducationViewFormData}
+        />
+      ),
     },
     {
       id: "project",
       label: "project",
-      component: <AdminProjectView />,
+      component: (
+        <AdminProjectView
+          formData={projectViewFormData}
+          setFormData={setProjectViewFormData}
+        />
+      ),
     },
     {
       id: "contact",

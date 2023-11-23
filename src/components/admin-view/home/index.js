@@ -1,6 +1,6 @@
 "use client";
 
-import FormControls from "../from-controls";
+import FormControls from "../form-controls";
 
 const controls = [
   {
