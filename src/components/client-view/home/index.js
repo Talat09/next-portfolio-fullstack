@@ -9,7 +9,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import AnimationWrapper from "../animation-wrapper";
-import aiImage from "../../../assets/Talat-Mahmud-image.png";
+
 import Image from "next/image";
 function variants() {
   return {
@@ -63,7 +63,7 @@ const socialIcons = [
   },
 ];
 export default function ClientHomeView({ data }) {
-  console.log(data, "ClientHomeView");
+  // console.log(data, "ClientHomeView");
   const setVariants = useMemo(() => variants(), []);
   const containerRef = useRef(null);
   return (
@@ -123,7 +123,7 @@ export default function ClientHomeView({ data }) {
             >
               <div className="w-[400px] h-[400px] top-[40px] left-[-30px] rounded-lg border-[6px] border-[#000000] absolute"></div>
               <Image
-                src={aiImage}
+                src="https://i.ibb.co/BfLLNMd/Talat-Mahmud-image.png"
                 alt="Profile Picture"
                 layout="responsive"
                 quality={100}
