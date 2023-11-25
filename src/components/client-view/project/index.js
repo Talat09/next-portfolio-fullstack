@@ -17,6 +17,7 @@ export default function ClientProjectView({ data }) {
           <h1 className="leading-[70px] mb-4 text-3xl lg:text-4xl xl:text-5xl font-medium">
             {"My Projects".split(" ").map((item, index) => (
               <span
+                key={index}
                 className={`${index === 1 ? "text-green-main" : "text-[#000]"}`}
               >
                 {item}{" "}
@@ -45,10 +46,10 @@ export default function ClientProjectView({ data }) {
       <AnimationWrapper>
         <ul className="project-wrapper" ref={containerRef}>
           {data && data.length
-            ? data.map((item, index) => (
+            ? data.map((item) => (
                 <li
                   className="w-full flex items-stretch cursor-pointer"
-                  key={index}
+                  key={item.name}
                 >
                   <div className="border-2 w-full relative border-green-main transition-all rounded-lg flex flex-col">
                     <div className="flex p-4 flex-col xl:flex-row w-full items-stretch xl:items-center">
@@ -61,13 +62,18 @@ export default function ClientProjectView({ data }) {
                             {item.createdAt.split("T")[0]}
                           </p>
                           <div className="grid gap-2 mt-5 grid-cols-2 h-full max-h-[200px] w-full">
-                            {item?.technologies.split(",").map((techItem) => (
-                              <div className="w-full flex justify-start items-center">
-                                <button className="whitespace-nowrap text-ellipsis overflow-hidden py-3 w-[120px]  px-6 border-[2px] border-green-main bg-[#fff] text-[#000] font-semibold rounded-lg text-xs tracking-widest hover:shadow-green-main transition-all outline-none">
-                                  {techItem}
-                                </button>
-                              </div>
-                            ))}
+                            {item?.technologies
+                              .split(",")
+                              .map((techItem, i) => (
+                                <div
+                                  key={i}
+                                  className="w-full flex justify-start items-center"
+                                >
+                                  <button className="whitespace-nowrap text-ellipsis overflow-hidden py-3 w-[120px]  px-6 border-[2px] border-green-main bg-[#fff] text-[#000] font-semibold rounded-lg text-xs tracking-widest hover:shadow-green-main transition-all outline-none">
+                                    {techItem}
+                                  </button>
+                                </div>
+                              ))}
                           </div>
                         </div>
                       </div>

@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import AnimationWrapper from "../animation-wrapper";
 
-import Image from "next/image";
+import Image from "next/legacy/image";
 function variants() {
   return {
     offscreen: {
@@ -86,6 +86,7 @@ export default function ClientHomeView({ data }) {
               {data && data.length
                 ? data[0]?.heading.split(" ").map((item, index) => (
                     <span
+                      key={index}
                       className={`${
                         index === 2 || index === 3
                           ? "text-green-main"
@@ -102,9 +103,9 @@ export default function ClientHomeView({ data }) {
               {data && data.length ? data[0]?.summary : null}
             </p>
             <motion.div className="flex gap-3 cursor-pointer">
-              {socialIcons.map((item) => (
+              {socialIcons.map((item, i) => (
                 <motion.div
-                  key={item.id}
+                  key={i}
                   initial={{ scale: 0 }}
                   animate={{ rotate: 360, scale: 1 }}
                   transition={{

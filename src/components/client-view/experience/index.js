@@ -13,7 +13,7 @@ export default function ClientExperienceAndEducationView({
   educationData,
   experienceData,
 }) {
-  console.log(educationData, experienceData, "experienceData");
+  // console.log(educationData, experienceData, "experienceData");
   return (
     <div
       className="max-w-screen-xl mt-24 mb-6 sm:mt-14 sm:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
@@ -26,6 +26,7 @@ export default function ClientExperienceAndEducationView({
               <h1 className="leading-[70px] mb-4 text-3xl lg:text-4xl xl:text-5xl font-medium">
                 {"My Experience".split(" ").map((item, index) => (
                   <span
+                    key={index}
                     className={`${
                       index === 1 ? "text-green-main" : "text-[#000]"
                     }`}
@@ -41,8 +42,8 @@ export default function ClientExperienceAndEducationView({
               <motion.div className="container">
                 <Timeline position="right">
                   {experienceData && experienceData.length
-                    ? experienceData.map((experienceItem) => (
-                        <TimelineItem>
+                    ? experienceData.map((experienceItem, i) => (
+                        <TimelineItem key={i}>
                           <TimelineSeparator>
                             <TimelineDot className="bg-green-main" />
                             <TimelineConnector className="bg-green-main" />
@@ -78,6 +79,7 @@ export default function ClientExperienceAndEducationView({
               <h1 className="leading-[70px] mb-4 text-3xl lg:text-4xl xl:text-5xl font-medium">
                 {"My Education".split(" ").map((item, index) => (
                   <span
+                    key={index}
                     className={`${
                       index === 1 ? "text-green-main" : "text-[#000]"
                     }`}
@@ -93,8 +95,8 @@ export default function ClientExperienceAndEducationView({
               <motion.div className="container">
                 <Timeline position="right">
                   {educationData && educationData.length
-                    ? educationData.map((educationItem) => (
-                        <TimelineItem>
+                    ? educationData.map((educationItem, i) => (
+                        <TimelineItem key={i}>
                           <TimelineSeparator>
                             <TimelineDot className="bg-green-main" />
                             <TimelineConnector className="bg-green-main" />

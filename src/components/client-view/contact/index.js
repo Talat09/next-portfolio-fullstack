@@ -34,7 +34,7 @@ export default function ClientContactView() {
 
   async function handleSendMessage() {
     const res = await addData("contact", formData);
-    console.log(res, "contact-res");
+    // console.log(res, "contact-res");
 
     if (res && res.success) {
       setFormData(initialFormData);
@@ -59,7 +59,7 @@ export default function ClientContactView() {
       : false;
   };
 
-  console.log(isValidForm(), "isValidForm()");
+  // console.log(isValidForm(), "isValidForm()");
   return (
     <div
       className="max-w-screen-xl mt-24 mb-6 sm:mt-14 sm:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
@@ -70,6 +70,7 @@ export default function ClientContactView() {
           <h1 className="leading-[70px] mb-4 text-3xl lg:text-4xl xl:text-5xl font-medium">
             {"Contact Me".split(" ").map((item, index) => (
               <span
+                key={index}
                 className={`${index === 1 ? "text-green-main" : "text-[#000]"}`}
               >
                 {item}{" "}
@@ -104,7 +105,7 @@ export default function ClientContactView() {
                     </div>
                   </div>
                 ) : (
-                  <div className="p-2 w-full">
+                  <div className="p-2 w-full" key={i}>
                     <div className="relative">
                       <label className="text-sm text-[#000]">
                         {controlItem.label}
