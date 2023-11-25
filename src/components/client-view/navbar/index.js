@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Link as LinkScroll, scroller } from "react-scroll";
+
 const menuItems = [
   {
     id: "home",
@@ -79,7 +80,16 @@ export default function Navbar() {
             />
           </ul>
           <div className="col-start-10 col-end-12 font-medium flex justify-center items-center">
-            <button className="py-3 px-6 border-[2px] bg-[#fff] border-green-main text-[#000] font-semibold rounded-lg text-xl tracking-widest hover: shadow-green-md transition-all outline-none">
+            <button
+              onClick={() =>
+                scroller.scrollTo("contact", {
+                  duration: 1500,
+                  delay: 100,
+                  smooth: true,
+                })
+              }
+              className="py-3 px-6 border-[2px] bg-[#fff] border-green-main text-[#000] font-semibold rounded-lg text-xl tracking-widest hover: shadow-green-md transition-all outline-none"
+            >
               Contact Me
             </button>
           </div>

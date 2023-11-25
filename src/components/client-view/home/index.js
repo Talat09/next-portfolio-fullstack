@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useMemo, useRef } from "react";
-
+import { useRouter } from "next/navigation";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -36,12 +36,14 @@ const socialIcons = [
         className="w-[40px] h-[40px] "
       />
     ),
+    socialLink: "https://www.facebook.com/profile.php?id=100010332459337",
   },
   {
     id: "twitter",
     icon: (
       <FaTwitter color="rgba(13, 183, 96, 1)" className="w-[40px] h-[40px] " />
     ),
+    socialLink: "https://www.linkedin.com/in/talat09/",
   },
   {
     id: "linkedin",
@@ -51,6 +53,7 @@ const socialIcons = [
         className="w-[40px] h-[40px] "
       />
     ),
+    socialLink: "https://www.linkedin.com/in/talat09/",
   },
   {
     id: "instagram",
@@ -60,12 +63,15 @@ const socialIcons = [
         className="w-[40px] h-[40px] "
       />
     ),
+    socialLink:
+      "https://www.instagram.com/dihan.talat/?igshid=NzZlODBkYWE4Ng%3D%3D&fbclid=IwAR0xCmMoc7WR7ZDVZkcKRAf_3gIYMTZYaZEIUG9DU8z_wZz8cIZ69-nktTs",
   },
 ];
 export default function ClientHomeView({ data }) {
   // console.log(data, "ClientHomeView");
   const setVariants = useMemo(() => variants(), []);
   const containerRef = useRef(null);
+  const router = useRouter();
   return (
     <div className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto" id="home">
       <AnimationWrapper>
@@ -109,6 +115,7 @@ export default function ClientHomeView({ data }) {
                   }}
                   whileHover={{ scale: 1.2, rotate: 360 }}
                   whileTap={{ scale: 0.8, rotate: -360, borderRadius: "100%" }}
+                  onClick={() => router.push(item.socialLink)}
                 >
                   {item.icon}
                 </motion.div>

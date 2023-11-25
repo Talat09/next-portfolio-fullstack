@@ -60,6 +60,7 @@ export default function AdminView() {
   const [projectViewFormData, setProjectViewFormData] = useState(
     initialProjectFormData
   );
+
   const [allData, setAllData] = useState({});
 
   const [update, setUpdate] = useState(false);
@@ -127,7 +128,7 @@ export default function AdminView() {
     {
       id: "contact",
       label: "Contact",
-      component: <AdminContactView />,
+      component: <AdminContactView data={allData && allData.contact} />,
     },
   ];
   async function extractAllDatas() {
