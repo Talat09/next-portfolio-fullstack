@@ -1,19 +1,21 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import { config } from "dotenv";
 
 // Load environment variables from .env file
-dotenv.config();
+config();
 
-const url = process.env.NEXT_PUBLIC_API_URL;
-console.log(url);
+const uri = process.env.NEXT_PUBLIC_API_URL;
+// console.log(uri);
 export default async function connectToDB() {
   try {
-    await mongoose.connect(url, {
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true, // Add this line
+      useFindAndModify: false, // Add this line
     });
     console.log("Database connected successfully");
   } catch (e) {
-    console.log(e);
+    console.error("Error connecting to the database:", e.message);
   }
 }
