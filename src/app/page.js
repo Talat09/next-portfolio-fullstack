@@ -4,7 +4,9 @@ import ClientContactView from "@/components/client-view/contact";
 import ClientExperienceAndEducationView from "@/components/client-view/experience";
 
 import ClientProjectView from "@/components/client-view/project";
-
+import { Footer } from "@/components/client-view/footer";
+//https://talat-mahmud-portfolio.vercel.app
+//http://localhost:3000
 async function extractAllDatas(currentSection) {
   try {
     const res = await fetch(
@@ -41,6 +43,7 @@ export default async function Home() {
       />
       <ClientProjectView data={projectSectionData} />
       <ClientContactView />
+      <Footer />
     </div>
   );
 }

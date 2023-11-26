@@ -84,7 +84,9 @@ export default function ClientAboutView({ data }) {
               </span>
             ))}
           </h1>
-          <p className="text-[#000] mt-4 mb-8 font-bold">{data?.aboutme}</p>
+          <p className="text-[#000] mt-4 mb-8 text-center text-xl">
+            {data?.aboutme}
+          </p>
         </div>
       </AnimationWrapper>
       <div className="grid grid-flow-row sm:grid-flow-col grid-cols-1 sm:grid-cols-2 gap-8">
