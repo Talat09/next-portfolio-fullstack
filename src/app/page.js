@@ -7,10 +7,13 @@ import ClientProjectView from "@/components/client-view/project";
 
 async function extractAllDatas(currentSection) {
   try {
-    const res = await fetch(`http://localhost:3000/api/${currentSection}/get`, {
-      method: "GET",
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `https://next-portfolio-fullstack.vercel.app/api/${currentSection}/get`,
+      {
+        method: "GET",
+        cache: "no-store",
+      }
+    );
     const data = await res.json();
     return data && data?.data;
   } catch (e) {
