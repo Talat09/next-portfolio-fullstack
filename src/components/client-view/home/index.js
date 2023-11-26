@@ -99,7 +99,7 @@ export default function ClientHomeView({ data }) {
                   ))
                 : null}
             </h1>
-            <p className="text-[#000] mt-4 mb-8 font-bold">
+            <p className="text-[#000] mt-4 mb-8 ">
               {data && data.length ? data[0]?.summary : null}
             </p>
             <motion.div className="flex gap-3 cursor-pointer">
