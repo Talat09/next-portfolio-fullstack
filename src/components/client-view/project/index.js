@@ -63,7 +63,7 @@ export default function ClientProjectView({ data }) {
                           </p>
                           <div className="grid gap-2 mt-5 grid-cols-2 h-full max-h-[200px] w-full">
                             {item?.technologies
-                              .split(",")
+                              ?.split(",")
                               .map((techItem, i) => (
                                 <div
                                   key={i}

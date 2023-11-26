@@ -1,16 +1,21 @@
+import ClientHomeView from "@/components/client-view/home";
 import ClientAboutView from "@/components/client-view/about";
 import ClientContactView from "@/components/client-view/contact";
 import ClientExperienceAndEducationView from "@/components/client-view/experience";
-import ClientHomeView from "@/components/client-view/home";
+
 import ClientProjectView from "@/components/client-view/project";
 
 async function extractAllDatas(currentSection) {
-  const res = await fetch(`http://localhost:3000/api/${currentSection}/get`, {
-    method: "GET",
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data && data.data;
+  try {
+    const res = await fetch(`http://localhost:3000/api/${currentSection}/get`, {
+      method: "GET",
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return data && data?.data;
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export default async function Home() {

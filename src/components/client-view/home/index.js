@@ -84,7 +84,7 @@ export default function ClientHomeView({ data }) {
           <div className="flex flex-col justify-center items-start row-start-2 sm:row-start-1">
             <h1 className="mb-4 text-3xl lg:text-4xl xl:text-6xl font-medium leading-normal">
               {data && data.length
-                ? data[0]?.heading.split(" ").map((item, index) => (
+                ? data[0]?.heading?.split(" ").map((item, index) => (
                     <span
                       key={index}
                       className={`${
