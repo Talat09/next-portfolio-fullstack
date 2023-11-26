@@ -11,8 +11,6 @@ export default async function connectToDB() {
     await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true, // Add this line
-      useFindAndModify: false, // Add this line
     });
     console.log("Database connected successfully");
   } catch (e) {
