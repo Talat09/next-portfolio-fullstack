@@ -51,7 +51,7 @@ export default function ClientProjectView({ data }) {
                   className="w-full flex items-stretch cursor-pointer"
                   key={item.name}
                 >
-                  <div className="border-2 w-full relative border-green-main transition-all rounded-lg flex flex-col">
+                  <div className="border-2 w-full  relative border-green-main transition-all rounded-lg flex flex-col">
                     <div className="flex p-4 flex-col xl:flex-row w-full items-stretch xl:items-center">
                       <div className="flex order-2 xl:order-1">
                         <div className="flex flex-col">
