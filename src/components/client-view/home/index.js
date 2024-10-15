@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Head from "next/head";
 import { useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -7,6 +8,7 @@ import {
   FaLinkedinIn,
   FaInstagram,
   FaTwitter,
+  FaGithub,
 } from "react-icons/fa";
 import AnimationWrapper from "../animation-wrapper";
 
@@ -39,11 +41,11 @@ const socialIcons = [
     socialLink: "https://www.facebook.com/profile.php?id=100010332459337",
   },
   {
-    id: "twitter",
+    id: "Github",
     icon: (
-      <FaTwitter color="rgba(13, 183, 96, 1)" className="w-[40px] h-[40px] " />
+      <FaGithub color="rgba(13, 183, 96, 1)" className="w-[40px] h-[40px] " />
     ),
-    socialLink: "https://www.linkedin.com/in/talat09/",
+    socialLink: "https://github.com/Talat09",
   },
   {
     id: "linkedin",
@@ -74,6 +76,37 @@ export default function ClientHomeView({ data }) {
   const router = useRouter();
   return (
     <div className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto" id="home">
+      <Head>
+        <title>
+          {data && data.length ? data[0]?.heading : "Your Site Title"}
+        </title>
+        <meta
+          name="description"
+          content={
+            data && data.length ? data[0]?.summary : "Your site description"
+          }
+        />
+        <meta
+          property="og:title"
+          content={data && data.length ? data[0]?.heading : "Your Site Title"}
+        />
+        <meta
+          property="og:description"
+          content={
+            data && data.length ? data[0]?.summary : "Your site description"
+          }
+        />
+        <meta
+          property="og:image"
+          content="https://i.ibb.co/BfLLNMd/Talat-Mahmud-image.png"
+        />
+        <meta
+          property="og:url"
+          content="https://talat-mahmud-portfolio.vercel.app/"
+        />
+
+        {/* Add any other meta tags you need */}
+      </Head>
       <AnimationWrapper>
         <motion.div
           className={
@@ -138,6 +171,7 @@ export default function ClientHomeView({ data }) {
                 height={300}
                 width={300}
                 className="absolute top-[-15px]"
+                priority
               />
             </motion.div>
           </motion.div>

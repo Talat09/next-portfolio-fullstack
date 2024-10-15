@@ -28,7 +28,7 @@ const skillItemVariant = {
   },
 };
 export default function ClientAboutView({ data }) {
-  console.log(data, "aboutSection");
+  // console.log(data, "aboutSection");
   const setVariants = useMemo(() => variants(), []);
   const aboutDataInfo = [
     { id: 1, label: "Client", value: data?.noofclients || "0" },
@@ -108,7 +108,7 @@ export default function ClientAboutView({ data }) {
             className="grid gap-4 grid-cols-3 h-full max-h-[200px] w-full"
           >
             {data?.skills?.split(",").map((skill, i) => {
-              console.log(skill);
+              // console.log(skill);
               return (
                 <motion.div
                   className="w-full flex justify-center items-center"

@@ -21,7 +21,7 @@ export default function AdminHomeView({
   setFormData,
   handleSaveData,
 }) {
-  console.log(formData);
+  // console.log(formData);
   return (
     <div className="w-full">
       <div className="bg-[#ffffff] shadow-md rounded px-8 pt-6 pb-8 mb-4 ">

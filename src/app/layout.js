@@ -5,9 +5,9 @@ import Head from "next/head";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Talat Mahmud",
+  title: "Talat Mahmud A Software Engineer",
   description:
-    "Talat Mahmud- a Software Engineer, a Web Developer with experience in HTML, CSS, JavaScript, React.js, and more. Skilled in creating impactful websites with strong problem-solving and collaboration skills.",
+    "Talat Mahmud a Software Engineer, a MERN Stack Web Developer with experience in HTML, CSS,Bootstrap,Tailwind Css, JavaScript, React.js,Material Ui, Daisy Ui,Context API,React Hooks,React Query,Redux and more. Skilled in creating impactful websites with strong problem-solving and collaboration skills.",
   author: "Talat Mahmud",
   social: {
     linkedin: "https://www.linkedin.com/in/talat09/",
