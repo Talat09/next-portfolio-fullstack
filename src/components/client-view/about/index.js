@@ -115,7 +115,7 @@ export default function ClientAboutView({ data }) {
                   variants={skillItemVariant}
                   key={i}
                 >
-                  <button className="whitespace-nowrap text-ellipsis overflow-hidden py-3 w-[160px] px-6 border-[2px] border-green-main bg-[#fff] text-[#000] font-semibold rounded-lg text-xl tracking-widest hover:shadow-green-main transition-all outline-none">
+                  <button className="whitespace-nowrap text-ellipsis overflow-hidden py-3 w-[160px] px-6 border-[2px] border-green-main bg-[#fff] text-[#000] font-semibold rounded-lg text-sm tracking-widest hover:shadow-green-main transition-all outline-none">
                     {skill}
                   </button>
                 </motion.div>

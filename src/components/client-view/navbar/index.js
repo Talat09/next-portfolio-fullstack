@@ -32,6 +32,7 @@ function CreateMenus({ activeLink, getMenuItems, setActiveLink }) {
       key={item.id}
       activeClass="active"
       to={item.id}
+      href={`#${item.id}`}
       spy={true}
       smooth={true}
       duration={1000}
