@@ -17,6 +17,7 @@ module.exports = {
       orange: "0px 20px 20px -15px rgba(245,56,56,0.81) ",
       "green-md": "0px 20px 40px -15px rgba(245,56,56,0.81) ",
       "green-md": "0px 20px 40px -15px rgba(13, 183, 96, 0.81)",
+      card: "0 8px 24px -12px rgba(15, 122, 61, 0.25)",
       none: "none",
     },
     colors: {
@@ -32,7 +33,12 @@ module.exports = {
       },
       green: {
         500: "#2FAB73",
-        main: "#0DB760",
+        // accessible brand green (5.4:1 on white) for text, buttons, tags
+        main: "#0f7a3d",
+        // bright brand green, only for large (>=24px) headings/decoration
+        brand: "#1a9e55",
+        tint: "#e3f7ec",
+        light: "#5fd497",
       },
       white: {
         300: "#F8F8F8",

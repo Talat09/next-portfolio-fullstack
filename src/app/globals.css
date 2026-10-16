@@ -1,15 +1,50 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+
+/* Tailwind v3 compatibility: v4 defaults border color to currentColor and
+   buttons to cursor:default. Keep the v3 behaviour. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
 
 html {
-  font-family: "Rubik", sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Visible keyboard focus for every interactive element */
+:where(a, button, input, textarea, select, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid #0f7a3d;
+  outline-offset: 2px;
+}
+
+/* Respect the OS "reduce motion" setting */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Shared button styles */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-lg bg-green-main text-white-500 font-semibold text-[15px] shadow-[0_12px_24px_-12px_rgba(15,122,61,0.8)] transition-colors hover:bg-[#0c6532] disabled:bg-gray-500 disabled:text-black-500 disabled:shadow-none disabled:cursor-not-allowed;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-lg border-[1.5px] border-green-main text-green-main bg-white-500 font-semibold text-[15px] transition-colors hover:bg-green-tint;
+  }
 }
 body {
-  background: bg-white-500;
-}
-p {
-  color: #000000;
+  background: #fbfefc;
 }
 .animation-hover:after {
   background: none repeat scroll 0 0 transparent;
@@ -50,21 +85,6 @@ li.check:before {
   top: -0.5em;
   font-size: 400%;
 }
-/* Slideshow */
-.slick-dots li {
-  @apply inline-block;
-}
-.slick-dots span {
-  @apply bg-gray-500;
-}
-.slick-dots .slick-active span {
-  @apply bg-orange-500 rounded-l-full rounded-r-full w-12;
-}
-
-/* purgecss end ignore */
-@tailwind utilities;
-/* purgecss start ignore */
-/* purgecss end ignore */
 
 body::-webkit-scrollbar {
   width: 5px;
@@ -147,14 +167,3 @@ circle {
   stroke: red;
 }
 
-.MuiTimelineItem-root::before {
-  flex: 0 !important;
-}
-
-.MuiTimelineDot-root {
-  background-color: rgba(47, 171, 115, 1) !important;
-}
-
-.MuiTimelineConnector-root {
-  background-color: rgba(47, 171, 115, 1) !important;
-}
