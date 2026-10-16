@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { scroller } from "react-scroll";
+import { scrollDuration } from "@/lib/motion";
 import type { IconType } from "react-icons";
 import {
   FaFacebookF,
@@ -48,11 +49,11 @@ const footerLinks = [
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-[#0b3d26] text-white-500 mt-16 pb-16 lg:pb-0">
-      <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-16 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+    <footer className="bg-[#0b3d26] text-white-500 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+      <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-16 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
         <div>
           <p className="flex gap-2 font-bold items-center text-[20px]">
-            <span className="h-[40px] flex items-center px-3 rounded-[8px] bg-green-main">
+            <span className="h-[40px] flex items-center px-3 rounded-lg bg-green-main">
               Talat
             </span>
             Mahmud
@@ -72,7 +73,7 @@ export function Footer() {
                   aria-label={label}
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-white-500/10 hover:bg-green-main transition-colors"
+                  className="w-11 h-11 flex items-center justify-center rounded-lg bg-white-500/10 hover:bg-green-main transition-colors"
                 >
                   <Icon className="w-4 h-4" aria-hidden="true" />
                 </motion.a>
@@ -81,11 +82,11 @@ export function Footer() {
           </ul>
           <p className="text-sm text-gray-400 text-center">
             Copyright &copy; {year} - All right reserved by{" "}
-            <span className="text-green-main">Talat Mahmud</span>
+            <span className="text-green-light">Talat Mahmud</span>
           </p>
         </div>
-        <nav aria-label="Footer navigation" className="md:justify-self-end">
-          <ul className="flex flex-wrap gap-4 text-sm">
+        <nav aria-label="Footer navigation" className="md:col-span-2 lg:col-span-1 justify-self-center lg:justify-self-end">
+          <ul className="flex flex-wrap lg:flex-nowrap justify-center gap-x-1 text-sm">
             {footerLinks.map((link) => (
               <li key={link.id}>
                 <a
@@ -93,12 +94,12 @@ export function Footer() {
                   onClick={(e) => {
                     e.preventDefault();
                     scroller.scrollTo(link.id, {
-                      duration: 1000,
+                      duration: scrollDuration(1000),
                       smooth: true,
                       offset: -80,
                     });
                   }}
-                  className="underline underline-offset-4 hover:text-green-main"
+                  className="inline-flex min-h-11 items-center px-1.5 underline underline-offset-4 hover:text-green-light"
                 >
                   {link.label}
                 </a>

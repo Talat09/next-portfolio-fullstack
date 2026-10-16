@@ -30,7 +30,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
     return NextResponse.json({
       success: true,
-      message: "Login successfull",
+      message: "Login successful",
     });
   } catch (e) {
     console.log(e);

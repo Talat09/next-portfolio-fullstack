@@ -63,7 +63,7 @@ const skillIcons: Record<string, [IconType, string]> = {
 
 function getSkillIcon(skill: string): [IconType, string] {
   const key = skill.toLowerCase().replace(/[\s.\-_]/g, "");
-  return skillIcons[key] || [FaCode, "#0DB760"];
+  return skillIcons[key] || [FaCode, "#0f7a3d"];
 }
 
 const DEFAULT_WHY_HIRE_LABEL = "WHY HIRE ME";
@@ -77,7 +77,7 @@ function renderHighlighted(text: string, highlight: string): ReactNode {
   return (
     <>
       {text.slice(0, index)}
-      <span className="text-green-main">{highlight}</span>
+      <span className="text-green-brand">{highlight}</span>
       {text.slice(index + highlight.length)}
     </>
   );
@@ -125,15 +125,15 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
 
   return (
     <section
-      className="max-w-screen-xl mt-10 mb-6 sm:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="max-w-screen-xl pt-4 pb-16 lg:pb-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="about"
     >
       {/* Stats */}
-      <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {aboutDataInfo.map(({ id, label, value, text, Icon }) => (
           <li
             key={id}
-            className="flex items-center gap-4 bg-white-500 rounded-2xl shadow-md border border-gray-100 p-6"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 sm:p-6"
           >
             <span className="w-14 h-14 shrink-0 rounded-full bg-[#e3f7ec] flex items-center justify-center">
               <Icon className="w-6 h-6 text-green-main" aria-hidden="true" />
@@ -141,7 +141,7 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
             <div>
               <p className="text-3xl font-extrabold text-black-600">{value}+</p>
               <p className="text-base font-bold text-black-600">{label}</p>
-              <p className="text-xs text-black-500">{text}</p>
+              <p className="text-[13px] text-black-500">{text}</p>
             </div>
           </li>
         ))}
@@ -151,17 +151,17 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
       <AnimationWrapper className="mt-12">
         <motion.div
           variants={fadeUp}
-          className="rounded-3xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
+          className="rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
         >
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white-500 px-4 py-1.5 text-xs font-semibold text-black-600">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white-500 px-4 py-1.5 text-xs font-semibold tracking-wide text-black-600">
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {whyHireLabel}
             </span>
-            <h2 className="mt-4 text-3xl lg:text-4xl font-extrabold leading-tight text-black-600">
+            <h2 className="mt-4 text-4xl lg:text-5xl font-extrabold leading-tight text-black-600">
               {renderHighlighted(whyHireHeading, whyHireHighlight)}
             </h2>
-            <p className="text-black-500 mt-4 mb-6">{data?.aboutme}</p>
+            <p className="text-black-500 leading-7 mt-4 mb-6 max-w-[60ch]">{data?.aboutme}</p>
             <Image
               src={aboutIllustration}
               alt="Developer working at a desk illustration"
@@ -175,14 +175,14 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
               return (
                 <li
                   key={i}
-                  className="flex items-center gap-3 bg-white-500 rounded-xl shadow-sm px-4 py-3 text-sm font-semibold text-black-600 overflow-hidden"
+                  className="flex items-center gap-2.5 bg-white-500 rounded-full shadow-sm px-4 py-2.5 text-[13px] sm:text-sm font-semibold text-black-600 min-w-0"
                 >
                   <SkillIcon
                     className="w-5 h-5 shrink-0"
                     style={{ color }}
                     aria-hidden="true"
                   />
-                  <span className="truncate">{skill}</span>
+                  <span className="min-w-0 break-words leading-tight">{skill}</span>
                 </li>
               );
             })}

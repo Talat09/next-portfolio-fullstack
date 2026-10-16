@@ -4,10 +4,10 @@ import type { ChangeEvent, ReactNode } from "react";
 import type { FormControl, SelectOption } from "@/types";
 
 export const inputClass =
-  "w-full rounded-lg border border-[#dfe7e2] bg-white-500 py-2.5 px-3 text-sm text-[#111827] placeholder:text-[#9ca3af] outline-none transition focus:border-[#1a9e55] focus:ring-2 focus:ring-[#1a9e55]/20";
+  "w-full rounded-lg border border-[#dfe7e2] bg-white-500 py-2.5 px-3 text-sm text-[#111827] placeholder:text-[#9ca3af] outline-none transition focus:border-[#0f7a3d] focus-visible:ring-2 focus-visible:ring-[#0f7a3d]/50";
 
 export const primaryButtonClass =
-  "inline-flex items-center justify-center gap-2 rounded-lg bg-[#1a9e55] hover:bg-[#0f7a3d] px-6 py-3 text-sm font-semibold text-white-500 shadow-[0_12px_24px_-12px_rgba(26,158,85,0.8)] transition-colors disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-lg bg-[#0f7a3d] hover:bg-[#0c6532] min-h-11 px-6 py-3 text-sm font-semibold text-white-500 shadow-[0_12px_24px_-12px_rgba(15,122,61,0.8)] transition-colors disabled:bg-[#dddddd] disabled:text-[#4f5665] disabled:shadow-none disabled:cursor-not-allowed";
 
 export function AdminPill({ children }: { children: ReactNode }) {
   return (

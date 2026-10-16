@@ -22,8 +22,8 @@ function Pill({ children }: { children: ReactNode }) {
 
 function SectionHeading({ first, highlight }: { first: string; highlight: string }) {
   return (
-    <h2 className="mt-3 mb-6 text-3xl lg:text-4xl font-extrabold text-black-600">
-      {first} <span className="text-green-main">{highlight}</span>
+    <h2 className="mt-3 mb-6 text-4xl lg:text-5xl font-extrabold text-black-600">
+      {first} <span className="text-green-brand">{highlight}</span>
     </h2>
   );
 }
@@ -51,13 +51,13 @@ function TimelineCard({
         aria-hidden="true"
         className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-green-main ring-4 ring-[#e3f7ec]"
       />
-      <div className="bg-white-500 rounded-2xl shadow-md border border-gray-100 p-5 flex gap-4 items-start">
+      <div className="bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 flex gap-4 items-start">
         <span className="w-11 h-11 shrink-0 rounded-xl bg-[#e3f7ec] flex items-center justify-center">
           <Icon className="w-5 h-5 text-green-main" aria-hidden="true" />
         </span>
         <div className="flex-1 min-w-0">{children}</div>
         {tag ? (
-          <span className="shrink-0 rounded-full bg-[#e3f7ec] text-green-main text-xs font-semibold px-3 py-1">
+          <span className="shrink-0 rounded-full bg-green-tint text-green-main text-xs font-semibold px-3 py-1">
             {tag}
           </span>
         ) : null}
@@ -75,7 +75,7 @@ export default function ClientExperienceAndEducationView({
 }) {
   return (
     <section
-      className="max-w-screen-xl mt-16 mb-6 sm:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="experience"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -91,7 +91,7 @@ export default function ClientExperienceAndEducationView({
                       Icon={FaBuilding}
                       tag={experienceItem.jobprofile}
                     >
-                      <p className="text-xs text-black-500">
+                      <p className="text-[13px] text-black-500">
                         {experienceItem.duration}
                       </p>
                       <h3 className="font-bold text-black-600 mt-1">
@@ -121,7 +121,7 @@ export default function ClientExperienceAndEducationView({
                       key={educationItem._id || i}
                       Icon={FaGraduationCap}
                     >
-                      <p className="text-xs text-black-500">
+                      <p className="text-[13px] text-black-500">
                         {educationItem.year}
                       </p>
                       <h3 className="font-bold text-black-600 mt-1">

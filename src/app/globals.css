@@ -13,6 +13,36 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Visible keyboard focus for every interactive element */
+:where(a, button, input, textarea, select, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid #0f7a3d;
+  outline-offset: 2px;
+}
+
+/* Respect the OS "reduce motion" setting */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Shared button styles */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-lg bg-green-main text-white-500 font-semibold text-[15px] shadow-[0_12px_24px_-12px_rgba(15,122,61,0.8)] transition-colors hover:bg-[#0c6532] disabled:bg-gray-500 disabled:text-black-500 disabled:shadow-none disabled:cursor-not-allowed;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-lg border-[1.5px] border-green-main text-green-main bg-white-500 font-semibold text-[15px] transition-colors hover:bg-green-tint;
+  }
+}
 body {
   background: #fbfefc;
 }

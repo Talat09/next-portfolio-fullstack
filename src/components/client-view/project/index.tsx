@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { scroller } from "react-scroll";
+import { scrollDuration } from "@/lib/motion";
 import type { Project } from "@/types";
 import { FaArrowRight, FaArrowUp } from "react-icons/fa";
 import AnimationWrapper from "../animation-wrapper";
@@ -25,7 +26,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
     if (showAll) {
       setShowAll(false);
       scroller.scrollTo("projects", {
-        duration: 800,
+        duration: scrollDuration(800),
         smooth: true,
         offset: -80,
       });
@@ -36,7 +37,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
 
   return (
     <section
-      className="max-w-screen-xl mt-16 mb-6 sm:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="projects"
     >
       <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
@@ -45,8 +46,8 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
             <span className="w-2 h-2 rounded-full bg-green-main" />
             MY WORK
           </span>
-          <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold text-black-600">
-            My <span className="text-green-main">Projects</span>
+          <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-black-600">
+            My <span className="text-green-brand">Projects</span>
           </h2>
         </div>
         <button
@@ -54,7 +55,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
           onClick={toggleShowAll}
           aria-expanded={showAll}
           aria-controls="projects-list"
-          className="inline-flex items-center gap-2 py-2 px-4 border-2 border-green-main text-green-main rounded-lg text-sm font-semibold hover:bg-[#e3f7ec] transition-all"
+          className="btn-outline px-4 text-sm"
         >
           {showAll ? (
             <>
@@ -71,7 +72,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
         <motion.ul
           id="projects-list"
           variants={fadeUp}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
           {visibleProjects.map((item) => (
             <ProjectCard key={item._id || item.name} item={item} />

@@ -25,7 +25,7 @@ function renderHighlighted(text: string, highlight: string): ReactNode {
   return (
     <>
       {text.slice(0, index)}
-      <span className="text-green-main">{highlight}</span>
+      <span className="text-green-brand">{highlight}</span>
       {text.slice(index + highlight.length)}
     </>
   );
@@ -54,7 +54,7 @@ const fadeUp: Variants = {
 };
 
 const inputClass =
-  "w-full border border-gray-500 focus:border-green-main bg-white-500 rounded-lg text-sm outline-none text-black-600 py-2.5 px-3 leading-6 transition-colors";
+  "w-full border border-gray-500 focus:border-green-main bg-white-500 rounded-lg text-sm text-black-600 min-h-11 py-2.5 px-3 leading-6 transition-colors";
 
 export default function ClientContactView({
   data,
@@ -74,9 +74,12 @@ export default function ClientContactView({
   const contactLocation = pick(data?.location, DEFAULT_LOCATION);
   const [formData, setFormData] = useState<ContactData>(initialFormData);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [sending, setSending] = useState(false);
 
   async function handleSendMessage() {
+    setSending(true);
     const res = await addData("contact", formData);
+    setSending(false);
 
     if (res && res.success) {
       setFormData(initialFormData);
@@ -111,23 +114,23 @@ export default function ClientContactView({
 
   return (
     <section
-      className="max-w-screen-xl mt-16 mb-24 lg:mb-14 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="contact"
     >
       <AnimationWrapper>
         <motion.div
           variants={fadeUp}
-          className="relative rounded-3xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10"
+          className="relative rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10"
         >
           <div className="relative">
             <span className="inline-flex items-center gap-2 rounded-full bg-white-500 px-4 py-1.5 text-xs font-semibold text-black-600">
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {label}
             </span>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-extrabold text-black-600">
+            <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-black-600">
               {renderHighlighted(heading, highlight)}
             </h2>
-            <p className="text-black-500 mt-4 max-w-md">
+            <p className="text-black-500 leading-7 mt-4 max-w-md">
               {intro}
             </p>
             <ul className="mt-6 flex flex-wrap gap-6">
@@ -135,7 +138,7 @@ export default function ClientContactView({
                 <span className="w-9 h-9 rounded-full bg-green-main text-white-500 flex items-center justify-center">
                   <FaEnvelope aria-hidden="true" />
                 </span>
-                <a href={`mailto:${contactEmail}`} className="hover:text-green-main">
+                <a href={`mailto:${contactEmail}`} className="inline-flex min-h-11 items-center break-all hover:text-green-main">
                   {contactEmail}
                 </a>
               </li>
@@ -148,15 +151,16 @@ export default function ClientContactView({
             </ul>
             <FaPaperPlane
               aria-hidden="true"
-              className="hidden lg:block absolute right-8 top-6 w-14 h-14 text-green-main -rotate-12 opacity-90"
+              className="hidden lg:block absolute right-8 top-6 w-14 h-14 text-green-brand -rotate-12 opacity-90"
             />
           </div>
 
           <form
-            className="bg-white-500 rounded-2xl shadow-md p-6 grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className="bg-white-500 rounded-2xl shadow-card p-6 grid grid-cols-1 sm:grid-cols-2 gap-4"
             onSubmit={(e) => {
               e.preventDefault();
               if (isValidForm()) handleSendMessage();
+              else toast.error("Please fill in your name, email and message.");
             }}
           >
             {controls.map((controlItem) =>
@@ -204,11 +208,12 @@ export default function ClientContactView({
             )}
             <button
               type="submit"
-              disabled={!isValidForm()}
-              className="sm:col-span-2 inline-flex items-center justify-center gap-2 disabled:opacity-50 py-3 text-white-500 font-semibold rounded-lg text-sm bg-green-main outline-none hover:opacity-90 transition-all"
+              disabled={sending}
+              aria-busy={sending}
+              className="sm:col-span-2 btn-primary w-full"
             >
               <FaPaperPlane aria-hidden="true" />
-              Send Message
+              {sending ? "Sending..." : "Send Message"}
             </button>
           </form>
         </motion.div>

@@ -3,11 +3,12 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Navbar from "../navbar";
 import { Toaster } from "react-hot-toast";
+import { MotionConfig } from "framer-motion";
 
 export default function CommonLayout({ children }: { children: ReactNode }) {
   const pathName = usePathname();
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       {pathName !== "/admin" ? <Navbar /> : null}
       {children}
       <Toaster
@@ -32,6 +33,6 @@ export default function CommonLayout({ children }: { children: ReactNode }) {
           },
         }}
       />
-    </>
+    </MotionConfig>
   );
 }

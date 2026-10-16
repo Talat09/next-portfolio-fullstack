@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { scroller } from "react-scroll";
+import { scrollDuration } from "@/lib/motion";
 import type { IconType } from "react-icons";
 import type { Home } from "@/types";
 import Image from "next/image";
@@ -109,7 +110,7 @@ export default function ClientHomeView({
               </span>
             ))}
           </h1>
-          <p className="text-[#4b5563] text-[15px] leading-[1.65] mb-8 max-w-[480px]">
+          <p className="text-[#4b5563] text-base leading-7 mb-8 max-w-[52ch]">
             {homeData?.summary}
           </p>
           <div className="flex flex-wrap gap-4 mb-9">
@@ -118,13 +119,13 @@ export default function ClientHomeView({
               onClick={(e) => {
                 e.preventDefault();
                 scroller.scrollTo("contact", {
-                  duration: 1500,
+                  duration: scrollDuration(1500),
                   delay: 100,
                   smooth: true,
                   offset: -80,
                 });
               }}
-              className="inline-flex items-center gap-2.5 py-3.5 px-6 bg-[#0f7a3d] hover:bg-[#0c6532] text-white-500 font-semibold rounded-lg text-[15px] shadow-[0_12px_24px_-12px_rgba(15,122,61,0.8)] transition-all"
+              className="btn-primary min-h-12"
             >
               <FaPaperPlane aria-hidden="true" />
               Let&apos;s Work Together
@@ -132,13 +133,13 @@ export default function ClientHomeView({
             <a
               href={CV_LINK}
               download
-              className="inline-flex items-center gap-2.5 py-3.5 px-9 border-[1.5px] border-[#1a9e55] text-[#1a9e55] bg-white-500 font-semibold rounded-lg text-[15px] hover:bg-[#e8f6ee] transition-all"
+              className="btn-outline min-h-12 px-9"
             >
               <FaDownload aria-hidden="true" />
               Download CV
             </a>
           </div>
-          <ul className="flex gap-5">
+          <ul className="flex gap-2 -ml-2.5">
             {socialIcons.map(({ id, label, Icon, socialLink }) => (
               <li key={id}>
                 <motion.a
@@ -148,7 +149,7 @@ export default function ClientHomeView({
                   aria-label={label}
                   whileHover={{ scale: 1.12 }}
                   whileTap={{ scale: 0.9 }}
-                  className="block text-[#1a9e55] hover:text-[#0f7a3d]"
+                  className="w-11 h-11 grid place-items-center rounded-lg text-green-main hover:text-[#0c6532]"
                 >
                   <Icon className="w-7 h-7" aria-hidden="true" />
                 </motion.a>
