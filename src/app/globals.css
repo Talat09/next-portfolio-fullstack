@@ -1,15 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+
+/* Tailwind v3 compatibility: v4 defaults border color to currentColor and
+   buttons to cursor:default. Keep the v3 behaviour. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
 
 html {
-  font-family: "Rubik", sans-serif;
+  scroll-behavior: smooth;
 }
 body {
-  background: bg-white-500;
-}
-p {
-  color: #000000;
+  background: #fbfefc;
 }
 .animation-hover:after {
   background: none repeat scroll 0 0 transparent;
@@ -50,21 +55,6 @@ li.check:before {
   top: -0.5em;
   font-size: 400%;
 }
-/* Slideshow */
-.slick-dots li {
-  @apply inline-block;
-}
-.slick-dots span {
-  @apply bg-gray-500;
-}
-.slick-dots .slick-active span {
-  @apply bg-orange-500 rounded-l-full rounded-r-full w-12;
-}
-
-/* purgecss end ignore */
-@tailwind utilities;
-/* purgecss start ignore */
-/* purgecss end ignore */
 
 body::-webkit-scrollbar {
   width: 5px;
@@ -147,14 +137,3 @@ circle {
   stroke: red;
 }
 
-.MuiTimelineItem-root::before {
-  flex: 0 !important;
-}
-
-.MuiTimelineDot-root {
-  background-color: rgba(47, 171, 115, 1) !important;
-}
-
-.MuiTimelineConnector-root {
-  background-color: rgba(47, 171, 115, 1) !important;
-}
