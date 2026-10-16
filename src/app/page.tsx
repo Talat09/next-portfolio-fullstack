@@ -7,7 +7,6 @@ import ClientProjectView from "@/components/client-view/project";
 import { Footer } from "@/components/client-view/footer";
 import type {
   About,
-  ApiResponse,
   ContactInfo,
   Education,
   Experience,
@@ -15,27 +14,17 @@ import type {
   Project,
   SectionTab,
 } from "@/types";
-//https://talat-mahmud-portfolio.vercel.app
-//http://localhost:3000
+import { getSectionData } from "@/lib/data";
+
+// Always render with fresh data from the database (same as the old no-store fetch).
+export const dynamic = "force-dynamic";
+
 async function extractAllDatas<T>(
   currentSection: SectionTab
 ): Promise<T[] | undefined> {
-  try {
-    const res = await fetch(
-      `https://talat-mahmud-portfolio.vercel.app/api/${currentSection}/get`,
-      {
-        method: "GET",
-        cache: "no-store",
-      }
-    );
-    const data: ApiResponse<T[]> = await res.json();
-    return data && data?.data;
-  } catch (e) {
-    console.log(e);
-    return undefined;
-  }
+  if (currentSection === "contact") return undefined; // messages are private
+  return (await getSectionData<T>(currentSection)) ?? undefined;
 }
-
 export default async function Home() {
   const homeSectionData = await extractAllDatas<HomeDoc>("home");
   const aboutSectionData = await extractAllDatas<About>("about");

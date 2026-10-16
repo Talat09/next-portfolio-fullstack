@@ -7,6 +7,7 @@ import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
 import AnimationWrapper from "../animation-wrapper";
 import { addData } from "@/services";
 import toast from "react-hot-toast";
+import { siteConfig } from "@/lib/site-config";
 
 // Defaults used when the Contact Info document (admin > Contact Info) is empty
 const DEFAULT_LABEL = "GET IN TOUCH";
@@ -14,9 +15,9 @@ const DEFAULT_HEADING = "Contact Me";
 const DEFAULT_HIGHLIGHT = "Me";
 const DEFAULT_INTRO =
   "Have a project in mind or want to work together? Feel free to send me a message. I'll get back to you as soon as possible.";
-// TODO: set your real email in admin > Contact Info
-const DEFAULT_EMAIL = "talatmahmud@example.com";
-const DEFAULT_LOCATION = "Dhaka, Bangladesh";
+// Email/location fallbacks come from NEXT_PUBLIC_CONTACT_EMAIL / NEXT_PUBLIC_CONTACT_LOCATION
+const DEFAULT_EMAIL = siteConfig.contactEmail;
+const DEFAULT_LOCATION = siteConfig.contactLocation;
 
 // Wraps the first (case-sensitive) occurrence of highlight in a green span
 function renderHighlighted(text: string, highlight: string): ReactNode {
@@ -136,6 +137,7 @@ export default function ClientContactView({
               {intro}
             </p>
             <ul className="mt-6 flex flex-wrap gap-6">
+              {contactEmail ? (
               <li className="flex items-center gap-3 text-sm text-black-600">
                 <span className="w-9 h-9 rounded-full bg-green-main text-white-500 flex items-center justify-center">
                   <FaEnvelope aria-hidden="true" />
@@ -144,12 +146,15 @@ export default function ClientContactView({
                   {contactEmail}
                 </a>
               </li>
+              ) : null}
+              {contactLocation ? (
               <li className="flex items-center gap-3 text-sm text-black-600">
                 <span className="w-9 h-9 rounded-full bg-green-main text-white-500 flex items-center justify-center">
                   <FaMapMarkerAlt aria-hidden="true" />
                 </span>
                 {contactLocation}
               </li>
+              ) : null}
             </ul>
             <FaPaperPlane
               aria-hidden="true"

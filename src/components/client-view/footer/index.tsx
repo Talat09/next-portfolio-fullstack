@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { scroller } from "react-scroll";
 import { scrollDuration } from "@/lib/motion";
 import type { IconType } from "react-icons";
+import { siteConfig, type SocialId } from "@/lib/site-config";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -10,33 +11,32 @@ import {
   FaGithub,
 } from "react-icons/fa";
 
-const socialIcons: { id: string; label: string; Icon: IconType; socialLink: string }[] = [
+const socialIcons = ([
   {
     id: "facebook",
     label: "Facebook",
     Icon: FaFacebookF,
-    socialLink: "https://www.facebook.com/profile.php?id=100010332459337",
+    socialLink: siteConfig.social.facebook,
   },
   {
     id: "github",
     label: "GitHub",
     Icon: FaGithub,
-    socialLink: "https://github.com/Talat09",
+    socialLink: siteConfig.social.github,
   },
   {
     id: "linkedin",
     label: "LinkedIn",
     Icon: FaLinkedinIn,
-    socialLink: "https://www.linkedin.com/in/talat09/",
+    socialLink: siteConfig.social.linkedin,
   },
   {
     id: "instagram",
     label: "Instagram",
     Icon: FaInstagram,
-    socialLink:
-      "https://www.instagram.com/dihan.talat/?igshid=NzZlODBkYWE4Ng%3D%3D&fbclid=IwAR0xCmMoc7WR7ZDVZkcKRAf_3gIYMTZYaZEIUG9DU8z_wZz8cIZ69-nktTs",
+    socialLink: siteConfig.social.instagram,
   },
-];
+] as { id: SocialId; label: string; Icon: IconType; socialLink: string }[]).filter((s) => s.socialLink);
 
 const footerLinks = [
   { id: "home", label: "Home" },
