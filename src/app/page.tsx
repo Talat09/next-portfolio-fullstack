@@ -15,6 +15,8 @@ import type {
   SectionTab,
 } from "@/types";
 import { getSectionData } from "@/lib/data";
+import { buildJsonLd, serializeJsonLd } from "@/lib/seo";
+import profileImage from "@/assets/Talat-Mahmud-image.png";
 
 // Always render with fresh data from the database (same as the old no-store fetch).
 export const dynamic = "force-dynamic";
@@ -26,14 +28,35 @@ async function extractAllDatas<T>(
   return (await getSectionData<T>(currentSection)) ?? undefined;
 }
 export default async function Home() {
-  const homeSectionData = await extractAllDatas<HomeDoc>("home");
-  const aboutSectionData = await extractAllDatas<About>("about");
-  const experienceSectionData = await extractAllDatas<Experience>("experience");
-  const educationSectionData = await extractAllDatas<Education>("education");
-  const projectSectionData = await extractAllDatas<Project>("project");
-  const contactInfoSectionData = await extractAllDatas<ContactInfo>("contact-info");
+  // Load all sections in parallel; each one falls back to empty on failure.
+  const [
+    homeSectionData,
+    aboutSectionData,
+    experienceSectionData,
+    educationSectionData,
+    projectSectionData,
+    contactInfoSectionData,
+  ] = await Promise.all([
+    extractAllDatas<HomeDoc>("home"),
+    extractAllDatas<About>("about"),
+    extractAllDatas<Experience>("experience"),
+    extractAllDatas<Education>("education"),
+    extractAllDatas<Project>("project"),
+    extractAllDatas<ContactInfo>("contact-info"),
+  ]);
+  const jsonLd = buildJsonLd({
+    about: aboutSectionData?.[0] ?? null,
+    experience: experienceSectionData,
+    education: educationSectionData,
+    contactInfo: contactInfoSectionData?.[0] ?? null,
+    imagePath: profileImage.src,
+  });
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <ClientHomeView
         data={homeSectionData}
         yearOfExperience={

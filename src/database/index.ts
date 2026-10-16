@@ -40,7 +40,8 @@ export default async function connectToDB(): Promise<void> {
     if (!cache.promise) {
       cache.promise = mongoose.connect(uri, {
         maxPoolSize: 10,
-        serverSelectionTimeoutMS: 10_000,
+        // Fail fast so a DB outage cannot push a page past the serverless time limit.
+        serverSelectionTimeoutMS: 4_000,
       });
     }
     cache.conn = await cache.promise;

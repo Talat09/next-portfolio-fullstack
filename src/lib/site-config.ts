@@ -23,6 +23,13 @@ export const siteConfig = {
   /** Fallbacks shown when the Contact Info document has no email/location. */
   contactEmail: clean(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
   contactLocation: clean(process.env.NEXT_PUBLIC_CONTACT_LOCATION),
+  /** Google Search Console HTML-tag verification token (optional). */
+  googleSiteVerification: clean(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION),
+  /** Other names people may search for, comma-separated (optional). */
+  personAltNames: clean(process.env.NEXT_PUBLIC_PERSON_ALT_NAMES)
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean),
   social: {
     facebook: clean(process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK),
     github: clean(process.env.NEXT_PUBLIC_SOCIAL_GITHUB),

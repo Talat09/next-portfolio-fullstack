@@ -69,8 +69,9 @@ export function Footer() {
                 <motion.a
                   href={socialLink}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   aria-label={label}
+                  title={`Talat Mahmud on ${label}`}
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-11 h-11 flex items-center justify-center rounded-lg bg-white-500/10 hover:bg-green-main transition-colors"

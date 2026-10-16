@@ -88,11 +88,13 @@ export default function ClientHomeView({
       <div className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 pt-6 pb-12 sm:pt-8 sm:pb-16 items-center">
         <div className="flex flex-col items-start order-2 lg:order-1">
+          {/* One h1 for the page: name + role pill and the headline, styled as before */}
+          <h1 className="flex flex-col items-start">
           <span className="inline-flex items-center gap-2.5 rounded-full bg-[#e8f6ee] px-4 py-2 text-[13px] font-medium text-[#111827]">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1a9e55]" />
-            Full Stack Web Developer
+            <span className="w-2.5 h-2.5 rounded-full bg-[#1a9e55]" aria-hidden="true" />
+            Talat Mahmud &middot; Full Stack Software Engineer
           </span>
-          <h1 className="mt-6 mb-5 text-[44px] sm:text-[56px] lg:text-[60px] xl:text-[64px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
+          <span className="block mt-6 mb-5 text-[44px] sm:text-[56px] lg:text-[60px] xl:text-[64px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
             {words.map((item, index) => (
               <span key={index}>
                 <span
@@ -109,6 +111,7 @@ export default function ClientHomeView({
                 ) : null}{" "}
               </span>
             ))}
+          </span>
           </h1>
           <p className="text-[#4b5563] text-base leading-7 mb-8 max-w-[52ch]">
             {homeData?.summary}
@@ -147,8 +150,9 @@ export default function ClientHomeView({
                 <motion.a
                   href={socialLink}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   aria-label={label}
+                  title={`Talat Mahmud on ${label}`}
                   whileHover={{ scale: 1.12 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-11 h-11 grid place-items-center rounded-lg text-green-main hover:text-[#0c6532]"
@@ -187,7 +191,7 @@ export default function ClientHomeView({
             <div className="absolute left-0 right-0 bottom-0 -top-14 overflow-hidden rounded-b-[34px]">
               <Image
                 src={profileImage}
-                alt="Talat Mahmud"
+                alt="Talat Mahmud - Full Stack Software Engineer"
                 fill
                 priority
                 sizes="(max-width: 640px) 260px, 360px"
