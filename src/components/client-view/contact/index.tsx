@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 import type { ContactData, ContactInfo, FormControl } from "@/types";
 import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
 import AnimationWrapper from "../animation-wrapper";
 import { addData } from "@/services";
-import toast from "react-hot-toast";
 import { siteConfig } from "@/lib/site-config";
 
 // Defaults used when the Contact Info document (admin > Contact Info) is empty
@@ -18,6 +18,9 @@ const DEFAULT_INTRO =
 // Email/location fallbacks come from NEXT_PUBLIC_CONTACT_EMAIL / NEXT_PUBLIC_CONTACT_LOCATION
 const DEFAULT_EMAIL = siteConfig.contactEmail;
 const DEFAULT_LOCATION = siteConfig.contactLocation;
+
+// The toast library is fetched only when the first message is shown.
+const AppToaster = dynamic(() => import("../toaster"), { ssr: false });
 
 // Wraps the first (case-sensitive) occurrence of highlight in a green span
 function renderHighlighted(text: string, highlight: string): ReactNode {
@@ -76,6 +79,13 @@ export default function ClientContactView({
   const [formData, setFormData] = useState<ContactData>(initialFormData);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [sending, setSending] = useState(false);
+  const [toasterMounted, setToasterMounted] = useState(false);
+
+  async function notify(kind: "success" | "error", message: string) {
+    setToasterMounted(true);
+    const { default: toast } = await import("react-hot-toast");
+    toast[kind](message);
+  }
   // honeypot: hidden from people, bots tend to fill it
   const [company, setCompany] = useState("");
 
@@ -87,9 +97,9 @@ export default function ClientContactView({
     if (res && res.success) {
       setFormData(initialFormData);
       setShowSuccessMessage(true);
-      toast.success(res?.message || "Message sent successfully");
+      notify("success", res?.message || "Message sent successfully");
     } else {
-      toast.error(res?.message || "Could not send your message. Please try again.");
+      notify("error", res?.message || "Could not send your message. Please try again.");
     }
   }
 
@@ -121,7 +131,7 @@ export default function ClientContactView({
       id="contact"
     >
       <AnimationWrapper>
-        <motion.div
+        <m.div
           variants={fadeUp}
           className="relative rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10"
         >
@@ -167,7 +177,7 @@ export default function ClientContactView({
             onSubmit={(e) => {
               e.preventDefault();
               if (isValidForm()) handleSendMessage();
-              else toast.error("Please fill in your name, email and message.");
+              else notify("error", "Please fill in your name, email and message.");
             }}
           >
             <div aria-hidden="true" className="hidden">
@@ -235,8 +245,9 @@ export default function ClientContactView({
               {sending ? "Sending..." : "Send Message"}
             </button>
           </form>
-        </motion.div>
+        </m.div>
       </AnimationWrapper>
+      {toasterMounted ? <AppToaster /> : null}
     </section>
   );
 }

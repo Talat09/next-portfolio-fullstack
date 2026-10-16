@@ -1,7 +1,7 @@
 "use client";
 
 import CountUp from "@/components/client-view/count-up";
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import type { ReactNode } from "react";
 import type { About } from "@/types";
@@ -158,7 +158,7 @@ export default function ClientAboutView({
 
       {/* Why hire me */}
       <AnimationWrapper className="mt-12">
-        <motion.div
+        <m.div
           variants={fadeUp}
           className="rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
         >
@@ -191,7 +191,7 @@ export default function ClientAboutView({
               );
             })}
           </ul>
-        </motion.div>
+        </m.div>
       </AnimationWrapper>
     </section>
   );

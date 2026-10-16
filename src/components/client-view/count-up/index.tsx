@@ -37,9 +37,13 @@ export default function CountUp({
   const shown = reduceMotion ? target : display;
 
   return (
-    <span ref={ref} className="tabular-nums" aria-label={`${target}${suffix}`}>
+    <span ref={ref} className="tabular-nums">
       <span aria-hidden="true">
         {shown}
+        {suffix}
+      </span>
+      <span className="sr-only">
+        {target}
         {suffix}
       </span>
     </span>

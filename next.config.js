@@ -1,4 +1,4 @@
-﻿/** @type {import('next').NextConfig} */
+/** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV !== "production";
 
 // Remote image hosts (comma-separated hostnames) from IMAGE_REMOTE_HOSTS, see .env.example
@@ -46,6 +46,11 @@ const nextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
+      {
+        // Files in public/media are versioned by name: rename a file when you change it.
+        source: "/media/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
       {
         source: "/admin",
         headers: [{ key: "Cache-Control", value: "private, no-store" }],

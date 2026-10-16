@@ -91,7 +91,6 @@ export default function Navbar() {
               scroller.scrollTo("home", { duration: scrollDuration(1000), smooth: true, offset: -80 });
             }}
             className="flex min-h-11 gap-1.5 font-extrabold items-center text-[18px] sm:text-[22px] text-[#111827] shrink-0"
-            aria-label="Talat Mahmud - go to top"
           >
             <span className="h-[34px] sm:h-[40px] flex justify-center items-center px-2 sm:px-2.5 rounded-lg bg-green-main text-white-500 text-[18px] sm:text-[22px] font-extrabold shadow-[0_6px_14px_-6px_rgba(15,122,61,0.7)]">
               Talat

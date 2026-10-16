@@ -6,6 +6,25 @@ function clean(value: string | undefined): string {
   return (value ?? "").trim();
 }
 
+// Share/tracking params added by social apps; real ones (e.g. Facebook ?id=) are kept.
+const TRACKING_PARAM = /^(utm_\w+|igsh|igshid|fbclid|gclid|mibextid|si|ref|ref_src|rdid|share_url|_rdr)$/i;
+
+/** Profile URL without tracking query params or hash (e.g. Instagram ?igsh=...). */
+function cleanProfileUrl(value: string | undefined): string {
+  const raw = clean(value);
+  if (!raw) return "";
+  try {
+    const u = new URL(raw);
+    for (const key of [...u.searchParams.keys()]) {
+      if (TRACKING_PARAM.test(key)) u.searchParams.delete(key);
+    }
+    u.hash = "";
+    return u.toString();
+  } catch {
+    return raw;
+  }
+}
+
 function siteUrl(): string {
   const explicit = clean(process.env.NEXT_PUBLIC_SITE_URL);
   if (explicit) return explicit.replace(/\/+$/, "");
@@ -31,10 +50,10 @@ export const siteConfig = {
     .map((s) => s.trim())
     .filter(Boolean),
   social: {
-    facebook: clean(process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK),
-    github: clean(process.env.NEXT_PUBLIC_SOCIAL_GITHUB),
-    linkedin: clean(process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN),
-    instagram: clean(process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM),
+    facebook: cleanProfileUrl(process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK),
+    github: cleanProfileUrl(process.env.NEXT_PUBLIC_SOCIAL_GITHUB),
+    linkedin: cleanProfileUrl(process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN),
+    instagram: cleanProfileUrl(process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM),
   },
 } as const;
 

@@ -46,7 +46,8 @@ interface JsonLdInput {
 }
 
 export function buildJsonLd({ about, experience, education, contactInfo, imagePath }: JsonLdInput) {
-  const url = `${siteConfig.siteUrl}/`;
+  // No trailing slash, matching the canonical URL and the sitemap.
+  const url = siteConfig.siteUrl;
   const personId = `${url}#person`;
   const websiteId = `${url}#website`;
   const job = currentJob(experience);
@@ -61,7 +62,8 @@ export function buildJsonLd({ about, experience, education, contactInfo, imagePa
     name: PERSON_NAME,
     givenName: "Talat",
     familyName: "Mahmud",
-    jobTitle: job?.position?.trim() || PERSON_ROLE,
+    // Same role everywhere (title, OG, h1); not taken from the experience entries.
+    jobTitle: PERSON_ROLE,
     description: SITE_DESCRIPTION,
     url,
     address: {

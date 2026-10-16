@@ -1,5 +1,5 @@
-﻿"use client";
-import { motion, type Variants } from "framer-motion";
+"use client";
+import { m, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import type { ReactNode } from "react";
 import type { Education, Experience } from "@/types";
@@ -87,7 +87,7 @@ export default function ClientExperienceAndEducationView({
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <AnimationWrapper>
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <Pill>MY JOURNEY</Pill>
             <SectionHeading first="My" highlight="Experience" />
             <TimelineList>
@@ -114,11 +114,11 @@ export default function ClientExperienceAndEducationView({
                   ))
                 : null}
             </TimelineList>
-          </motion.div>
+          </m.div>
         </AnimationWrapper>
 
         <AnimationWrapper>
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <Pill>MY ACADEMIC BACKGROUND</Pill>
             <SectionHeading first="My" highlight="Education" />
             <TimelineList>
@@ -141,7 +141,7 @@ export default function ClientExperienceAndEducationView({
                   ))
                 : null}
             </TimelineList>
-          </motion.div>
+          </m.div>
         </AnimationWrapper>
       </div>
     </section>

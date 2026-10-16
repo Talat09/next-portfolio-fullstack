@@ -1,5 +1,5 @@
 "use client";
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { m, type HTMLMotionProps } from "framer-motion";
 import type { ReactNode } from "react";
 
 type AnimationWrapperProps = HTMLMotionProps<"div"> & {
@@ -12,7 +12,7 @@ export default function AnimationWrapper({
   ...props
 }: AnimationWrapperProps) {
   return (
-    <motion.div
+    <m.div
       initial="offscreen"
       whileInView={"onscreen"}
       viewport={{ once: true, amount: 0.15 }}
@@ -20,6 +20,6 @@ export default function AnimationWrapper({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

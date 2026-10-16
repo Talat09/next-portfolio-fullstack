@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import { scroller } from "react-scroll";
 import { scrollDuration } from "@/lib/motion";
 import type { Project } from "@/types";
@@ -69,7 +69,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
         </button>
       </div>
       <AnimationWrapper>
-        <motion.ul
+        <m.ul
           id="projects-list"
           variants={fadeUp}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
@@ -77,7 +77,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
           {visibleProjects.map((item) => (
             <ProjectCard key={item._id || item.name} item={item} />
           ))}
-        </motion.ul>
+        </m.ul>
       </AnimationWrapper>
     </section>
   );

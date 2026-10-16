@@ -1,5 +1,5 @@
-﻿"use client";
-import { motion } from "framer-motion";
+"use client";
+import { LazyMotion, m, domMax } from "framer-motion";
 import { useRef } from "react";
 import { scroller } from "react-scroll";
 import { scrollDuration } from "@/lib/motion";
@@ -94,6 +94,8 @@ export default function ClientHomeView({
             <span className="w-2.5 h-2.5 rounded-full bg-[#1a9e55]" aria-hidden="true" />
             Talat Mahmud &middot; Full Stack Software Engineer
           </span>
+          {/* keeps the pill and headline as separate phrases for screen readers/search */}
+          <span className="sr-only"> - </span>
           <span className="block mt-6 mb-5 text-[44px] sm:text-[56px] lg:text-[60px] xl:text-[64px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
             {words.map((item, index) => (
               <span key={index}>
@@ -147,7 +149,7 @@ export default function ClientHomeView({
           <ul className="flex gap-2 -ml-2.5">
             {socialIcons.map(({ id, label, Icon, socialLink }) => (
               <li key={id}>
-                <motion.a
+                <m.a
                   href={socialLink}
                   target="_blank"
                   rel="me noopener noreferrer"
@@ -158,14 +160,16 @@ export default function ClientHomeView({
                   className="w-11 h-11 grid place-items-center rounded-lg text-green-main hover:text-[#0c6532]"
                 >
                   <Icon className="w-7 h-7" aria-hidden="true" />
-                </motion.a>
+                </m.a>
               </li>
             ))}
           </ul>
         </div>
 
         <div ref={dragAreaRef} className="relative flex justify-center lg:justify-end lg:pr-[169px] order-1 lg:order-2 pt-10 lg:pt-14 lg:self-start">
-          <motion.div
+          {/* drag needs the full feature set (domMax); loading it lazily delayed LCP in Lighthouse */}
+          <LazyMotion features={domMax}>
+          <m.div
             drag
             dragConstraints={dragAreaRef}
             dragElastic={0.5}
@@ -222,7 +226,7 @@ export default function ClientHomeView({
             {/* handwritten signature beside the frame + arrow pointing back at it */}
             <div
               aria-hidden="true"
-              className="absolute top-[2%] -right-[165px] z-20 text-[#1a9e55] hidden md:block"
+              className="absolute top-[2%] -right-[165px] z-20 text-green-main hidden md:block"
             >
               <span
                 className="block -rotate-[10deg] text-[20px] leading-[1.05] font-semibold"
@@ -237,7 +241,8 @@ export default function ClientHomeView({
                 <path d="M16 27l-7 7 8 4" />
               </svg>
             </div>
-          </motion.div>
+          </m.div>
+          </LazyMotion>
         </div>
       </div>
       </div>
