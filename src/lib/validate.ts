@@ -47,6 +47,7 @@ export const FIELD_RULES: Record<Section, Record<string, FieldRule>> = {
     website: { max: 500, kind: "url" },
     technologies: { max: 1000 },
     github: { max: 500, kind: "url" },
+    image: { max: 1000, kind: "url" },
   },
   contact: {
     name: { max: 100 },

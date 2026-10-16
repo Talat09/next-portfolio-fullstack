@@ -46,6 +46,8 @@ export interface ProjectData {
   website: string;
   technologies: string;
   github: string;
+  /** Project screenshot URL (Cloudinary secure_url); empty = no image */
+  image?: string;
   /** Display position set via admin drag-and-drop (0 = first) */
   order?: number;
 }

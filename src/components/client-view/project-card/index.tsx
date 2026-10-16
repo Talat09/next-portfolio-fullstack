@@ -1,14 +1,35 @@
 import { FaGlobe, FaGithub, FaCode } from "react-icons/fa";
+import Image from "next/image";
 import type { Project } from "@/types";
+
+/** Cloudinary images go through next/image optimisation; other hosts are shown as-is. */
+function isCloudinary(url: string): boolean {
+  try {
+    return new URL(url).hostname === "res.cloudinary.com";
+  } catch {
+    return false;
+  }
+}
 
 /** Shared project card used on the homepage and on /projects */
 export default function ProjectCard({ item }: { item: Project }) {
   return (
     <li
       data-project-card
-      className="bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 flex flex-col"
+      className="group bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 flex flex-col"
     >
-      {/* simple coloured header until project images are added */}
+      {item.image ? (
+        <div className="relative -mx-5 -mt-5 mb-4 aspect-[16/9] overflow-hidden rounded-t-2xl bg-green-tint">
+          <Image
+            src={item.image}
+            alt={`${item.name} screenshot`}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            unoptimized={!isCloudinary(item.image)}
+            className="object-cover object-top transition-transform duration-500 ease-out will-change-transform group-hover:scale-110 group-focus-within:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        </div>
+      ) : (
       <div
         aria-hidden="true"
         className="-mx-5 -mt-5 mb-4 h-24 rounded-t-2xl bg-green-tint flex items-center justify-center"
@@ -17,6 +38,7 @@ export default function ProjectCard({ item }: { item: Project }) {
           <FaCode className="w-6 h-6 text-green-main" />
         </span>
       </div>
+      )}
       <h3 className="text-lg text-black-600 capitalize font-extrabold">
         {item.name}
       </h3>

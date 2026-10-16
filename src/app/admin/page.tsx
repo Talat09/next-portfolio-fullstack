@@ -108,6 +108,7 @@ const initialProjectFormData: ProjectData = {
   website: "",
   technologies: "",
   github: "",
+  image: "",
 };
 const initialContactInfoFormData: ContactInfoData = {
   label: "",
@@ -235,7 +236,7 @@ export default function AdminView() {
   // Tabs whose list items can be edited / deleted
   const editableTabs: Record<EditableTab, EditableTabConfig> = {
     project: {
-      fields: ["name", "website", "technologies", "github"],
+      fields: ["name", "website", "technologies", "github", "image"],
       setFormData: (data) =>
         setProjectViewFormData(data as unknown as ProjectData),
       initialFormData: {
@@ -243,6 +244,7 @@ export default function AdminView() {
         website: initialProjectFormData.website,
         technologies: initialProjectFormData.technologies,
         github: initialProjectFormData.github,
+        image: initialProjectFormData.image ?? "",
       },
       label: "Project",
       confirmText: (item) => `Delete ${item.name}?`,

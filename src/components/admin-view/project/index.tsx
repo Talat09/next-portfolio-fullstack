@@ -22,7 +22,9 @@ import { CSS } from "@dnd-kit/utilities";
 import { MdDragIndicator } from "react-icons/md";
 import type { FormControl, Project, ProjectData } from "@/types";
 import { sortByOrderThenUpdated } from "@/lib/sort";
+import Image from "next/image";
 import FormControls, { AdminCard, primaryButtonClass } from "../form-controls";
+import ImageUpload from "../image-upload";
 
 const controls: FormControl[] = [
   {
@@ -131,6 +133,7 @@ export default function AdminProjectView({
   handleSaveOrder: (ids: string[]) => Promise<boolean>;
 }) {
   const isEditing = Boolean(editingProjectId);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   // Projects in the same order the homepage shows them
   const savedOrder = useMemo(
@@ -196,6 +199,12 @@ export default function AdminProjectView({
           formData={formData}
           setFormData={setFormData}
         />
+        <ImageUpload
+          key={editingProjectId || "new"}
+          value={formData.image || ""}
+          onChange={(url) => setFormData({ ...formData, image: url })}
+          onUploadingChange={setUploadingImage}
+        />
         <div className="mt-6 flex justify-end gap-3">
           {isEditing ? (
             <button
@@ -209,9 +218,10 @@ export default function AdminProjectView({
           <button
             type="button"
             onClick={() => handleSaveData("project")}
-            className={primaryButtonClass}
+            disabled={uploadingImage}
+            className={` disabled:opacity-50 disabled:cursor-not-allowed`}
           >
-            {isEditing ? "Update Project" : "Add Info"}
+            {uploadingImage ? "Uploading image..." : isEditing ? "Update Project" : "Add Info"}
           </button>
         </div>
       </AdminCard>
@@ -263,6 +273,11 @@ export default function AdminProjectView({
                     index={i}
                     highlighted={editingProjectId === item._id}
                   >
+                    {item.image ? (
+                      <div className="relative mb-3 h-28 w-full overflow-hidden rounded-lg border border-[#e3efe8] bg-white-500">
+                        <Image src={item.image} alt="" fill sizes="(min-width: 768px) 320px, 90vw" unoptimized className="object-cover" />
+                      </div>
+                    ) : null}
                     <p className="font-bold text-[#111827] break-words pr-10">{item.name}</p>
                     <p className="mt-1 text-[#4b5563] break-words"><span className="font-semibold text-[#111827]">technologies:</span> {item.technologies}</p>
                     <p className="mt-1 text-[#4b5563] break-words"><span className="font-semibold text-[#111827]">website:</span> {item.website}</p>

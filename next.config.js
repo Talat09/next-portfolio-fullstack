@@ -6,6 +6,8 @@ const imageHosts = (process.env.IMAGE_REMOTE_HOSTS || "")
   .split(",")
   .map((h) => h.trim())
   .filter(Boolean);
+// Project images uploaded from the admin panel are served by Cloudinary
+if (!imageHosts.includes("res.cloudinary.com")) imageHosts.push("res.cloudinary.com");
 
 // Next.js injects inline scripts for hydration and framer-motion uses inline
 // styles, so 'unsafe-inline' is needed until a nonce-based CSP is added.

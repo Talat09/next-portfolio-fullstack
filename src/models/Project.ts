@@ -7,6 +7,7 @@ const ProjectSchema = new Schema<ProjectData>(
     website: String,
     technologies: String,
     github: String,
+    image: String,
     order: Number,
   },
   { timestamps: true }

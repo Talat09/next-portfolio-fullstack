@@ -158,3 +158,31 @@ export async function logout(): Promise<ApiResponse> {
     return NETWORK_ERROR;
   }
 }
+
+//upload one image (admin) to /api/upload; reports progress 0-100
+export function uploadImage(
+  file: File,
+  onProgress?: (percent: number) => void
+): Promise<ApiResponse<{ url: string }>> {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/api/upload");
+    xhr.withCredentials = true;
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable && onProgress) {
+        onProgress(Math.min(99, Math.round((e.loaded / e.total) * 100)));
+      }
+    };
+    xhr.onload = () => {
+      try {
+        resolve(JSON.parse(xhr.responseText));
+      } catch {
+        resolve({ success: false, message: `Upload failed (${xhr.status})` });
+      }
+    };
+    xhr.onerror = () => resolve(NETWORK_ERROR);
+    const form = new FormData();
+    form.append("file", file);
+    xhr.send(form);
+  });
+}
