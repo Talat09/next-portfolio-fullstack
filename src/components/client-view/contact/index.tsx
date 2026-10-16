@@ -75,10 +75,12 @@ export default function ClientContactView({
   const [formData, setFormData] = useState<ContactData>(initialFormData);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [sending, setSending] = useState(false);
+  // honeypot: hidden from people, bots tend to fill it
+  const [company, setCompany] = useState("");
 
   async function handleSendMessage() {
     setSending(true);
-    const res = await addData("contact", formData);
+    const res = await addData("contact", { ...formData, company });
     setSending(false);
 
     if (res && res.success) {
@@ -163,6 +165,18 @@ export default function ClientContactView({
               else toast.error("Please fill in your name, email and message.");
             }}
           >
+            <div aria-hidden="true" className="hidden">
+              <label htmlFor="company">Company</label>
+              <input
+                id="company"
+                name="company"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+              />
+            </div>
             {controls.map((controlItem) =>
               controlItem.name === "message" ? (
                 <div className="sm:col-span-2" key={controlItem.name}>

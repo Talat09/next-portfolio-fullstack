@@ -38,3 +38,7 @@ next-env.d.ts
 
 .vercel
 /security_audit.md
+# env backups (contain secrets)
+.env.backup*
+.env
+.env.local

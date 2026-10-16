@@ -1,28 +1,6 @@
-import connectToDB from "@/database";
+// Admin only: requires a valid session (see src/lib/auth.ts); input is validated before any DB access.
 import About from "@/models/About";
-import { NextRequest, NextResponse } from "next/server";
+import { makeAddHandler } from "@/lib/crud";
+
 export const dynamic = "force-dynamic";
-export async function POST(req: NextRequest): Promise<NextResponse> {
-  try {
-    await connectToDB();
-    const extractData = await req.json();
-    const savedData = await About.create(extractData);
-    if (savedData) {
-      return NextResponse.json({
-        success: true,
-        message: "Data saved successfully",
-      });
-    } else {
-      return NextResponse.json({
-        success: false,
-        message: "Something went wrong ! Please try again",
-      });
-    }
-  } catch (e) {
-    console.log(e);
-    return NextResponse.json({
-      success: false,
-      message: "Something went wrong ! Please try again",
-    });
-  }
-}
+export const POST = makeAddHandler(About, "about");

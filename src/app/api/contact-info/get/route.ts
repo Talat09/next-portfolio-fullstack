@@ -1,8 +1,8 @@
 import connectToDB from "@/database";
 import ContactInfo from "@/models/ContactInfo";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
-export async function GET(_req: NextRequest): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
   try {
     await connectToDB();
     const extractData = await ContactInfo.find({});

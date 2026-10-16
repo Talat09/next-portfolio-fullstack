@@ -12,7 +12,9 @@ import {
   addData,
   deleteData,
   getData,
+  getSessionStatus,
   login,
+  logout,
   reorderProjects,
   updateData,
 } from "@/services";
@@ -145,96 +147,6 @@ export default function AdminView() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [authUser, setAuthUser] = useState<boolean>(false);
   const [loginFormData, setLoginFormData] = useState<LoginFormData>(initialLoginFormData);
-  const menuItems: MenuItem[] = [
-    {
-      id: "home",
-      label: "Home",
-      component: (
-        <AdminHomeView
-          formData={homeViewFormData}
-          setFormData={setHomeViewFormData}
-          handleSaveData={handleSaveData}
-        />
-      ),
-    },
-    {
-      id: "about",
-      label: "About",
-      component: (
-        <AdminAboutView
-          formData={aboutViewFormData}
-          setFormData={setAboutViewFormData}
-          handleSaveData={handleSaveData}
-        />
-      ),
-    },
-    {
-      id: "experience",
-      label: "Experience",
-      component: (
-        <AdminExperienceView
-          formData={experienceViewFormData}
-          setFormData={setExperienceViewFormData}
-          handleSaveData={handleSaveData}
-          data={allData?.experience}
-          editingId={editingId}
-          handleEdit={(item) => handleEditItem("experience", item)}
-          handleCancelEdit={() => handleCancelEdit("experience")}
-          handleDelete={(item) => handleDeleteItem("experience", item)}
-        />
-      ),
-    },
-    {
-      id: "education",
-      label: "Education",
-      component: (
-        <AdminEducationView
-          formData={educationViewFormData}
-          setFormData={setEducationViewFormData}
-          handleSaveData={handleSaveData}
-          data={allData?.education}
-          editingId={editingId}
-          handleEdit={(item) => handleEditItem("education", item)}
-          handleCancelEdit={() => handleCancelEdit("education")}
-          handleDelete={(item) => handleDeleteItem("education", item)}
-        />
-      ),
-    },
-    {
-      id: "project",
-      label: "Projects",
-      component: (
-        <AdminProjectView
-          formData={projectViewFormData}
-          setFormData={setProjectViewFormData}
-          handleSaveData={handleSaveData}
-          data={allData?.project}
-          editingProjectId={editingId}
-          handleEditProject={(item) => handleEditItem("project", item)}
-          handleCancelEditProject={() => handleCancelEdit("project")}
-          handleDeleteProject={(item) => handleDeleteItem("project", item)}
-          handleSaveOrder={handleSaveProjectOrder}
-        />
-      ),
-    },
-    {
-      id: "contact-info",
-      label: "Contact Info",
-      component: (
-        <AdminContactInfoView
-          formData={contactInfoViewFormData}
-          setFormData={setContactInfoViewFormData}
-          handleSaveData={handleSaveData}
-          isUpdate={update}
-        />
-      ),
-    },
-    {
-      id: "contact",
-      label: "Contact",
-      component: <AdminContactView data={allData && allData.contact} />,
-    },
-  ];
   async function extractAllDatas() {
     const response = await getData<unknown[]>(currentSelectedTab);
     //
@@ -412,7 +324,10 @@ export default function AdminView() {
   }
 
   useEffect(() => {
-    extractAllDatas();
+    // Deferred so setState runs in a callback, not synchronously in the effect body.
+    void Promise.resolve().then(extractAllDatas);
+    // Re-fetch only when the selected tab changes (same as before).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSelectedTab]);
 
   function resetFormDatas() {
@@ -425,20 +340,119 @@ export default function AdminView() {
   }
   // console.log(allData, homeViewFormData, "homeview");
   useEffect(() => {
-    const getuser = JSON.parse(sessionStorage.getItem("authUser") ?? "null");
-    setAuthUser(getuser);
+    // Ask the server whether the session cookie is valid (sessionStorage is not trusted)
+    let active = true;
+    getSessionStatus().then(({ authenticated, configured }) => {
+      if (!active) return;
+      setAuthUser(authenticated);
+      if (!configured) {
+        toast.error("Admin login is not configured on the server (SESSION_SECRET missing).");
+      }
+    });
+    return () => {
+      active = false;
+    };
   }, []);
   async function handleLogin() {
     const res = await login(loginFormData);
     // console.log(res, "login");
     if (res?.success) {
       setAuthUser(true);
-      sessionStorage.setItem("authUser", JSON.stringify(true));
       toast.success(res?.message || "Logged in successfully");
     } else {
       toast.error(res?.message || "Login failed. Please check your credentials.");
     }
   }
+  const menuItems: MenuItem[] = [
+    {
+      id: "home",
+      label: "Home",
+      component: (
+        <AdminHomeView
+          formData={homeViewFormData}
+          setFormData={setHomeViewFormData}
+          handleSaveData={handleSaveData}
+        />
+      ),
+    },
+    {
+      id: "about",
+      label: "About",
+      component: (
+        <AdminAboutView
+          formData={aboutViewFormData}
+          setFormData={setAboutViewFormData}
+          handleSaveData={handleSaveData}
+        />
+      ),
+    },
+    {
+      id: "experience",
+      label: "Experience",
+      component: (
+        <AdminExperienceView
+          formData={experienceViewFormData}
+          setFormData={setExperienceViewFormData}
+          handleSaveData={handleSaveData}
+          data={allData?.experience}
+          editingId={editingId}
+          handleEdit={(item) => handleEditItem("experience", item)}
+          handleCancelEdit={() => handleCancelEdit("experience")}
+          handleDelete={(item) => handleDeleteItem("experience", item)}
+        />
+      ),
+    },
+    {
+      id: "education",
+      label: "Education",
+      component: (
+        <AdminEducationView
+          formData={educationViewFormData}
+          setFormData={setEducationViewFormData}
+          handleSaveData={handleSaveData}
+          data={allData?.education}
+          editingId={editingId}
+          handleEdit={(item) => handleEditItem("education", item)}
+          handleCancelEdit={() => handleCancelEdit("education")}
+          handleDelete={(item) => handleDeleteItem("education", item)}
+        />
+      ),
+    },
+    {
+      id: "project",
+      label: "Projects",
+      component: (
+        <AdminProjectView
+          formData={projectViewFormData}
+          setFormData={setProjectViewFormData}
+          handleSaveData={handleSaveData}
+          data={allData?.project}
+          editingProjectId={editingId}
+          handleEditProject={(item) => handleEditItem("project", item)}
+          handleCancelEditProject={() => handleCancelEdit("project")}
+          handleDeleteProject={(item) => handleDeleteItem("project", item)}
+          handleSaveOrder={handleSaveProjectOrder}
+        />
+      ),
+    },
+    {
+      id: "contact-info",
+      label: "Contact Info",
+      component: (
+        <AdminContactInfoView
+          formData={contactInfoViewFormData}
+          setFormData={setContactInfoViewFormData}
+          handleSaveData={handleSaveData}
+          isUpdate={update}
+        />
+      ),
+    },
+    {
+      id: "contact",
+      label: "Contact",
+      component: <AdminContactView data={allData && allData.contact} />,
+    },
+  ];
   if (!authUser)
     return (
       <Login
@@ -464,10 +478,11 @@ export default function AdminView() {
           <button
             type="button"
             className="rounded-lg border-[1.5px] border-[#1a9e55] px-4 py-2 text-sm font-semibold text-[#1a9e55] hover:bg-[#e8f6ee] transition-colors"
-            onClick={() => {
+            onClick={async () => {
+              const res = await logout();
               setAuthUser(false);
-              sessionStorage.removeItem("authUser");
-              toast.success("Logged out successfully");
+              if (res?.success) toast.success("Logged out successfully");
+              else toast.error(res?.message || "Logout failed. Please try again.");
             }}
           >
             Logout

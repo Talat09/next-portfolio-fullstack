@@ -2,32 +2,39 @@ import connectToDB from "@/database";
 import Project from "@/models/Project";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/auth";
+import { isValidObjectIdString } from "@/lib/validate";
 
 export const dynamic = "force-dynamic";
 
 // PUT { ids: string[] } -> sets order = index for each project id
 export async function PUT(req: NextRequest): Promise<NextResponse> {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   try {
     let body: { ids?: unknown } | null = null;
     try {
       body = await req.json();
-    } catch (e) {
+    } catch {
       body = null;
     }
     const ids = body?.ids;
     if (
       !Array.isArray(ids) ||
       ids.length === 0 ||
+      ids.length > 500 ||
       !ids.every(
-        (id): id is string =>
-          typeof id === "string" && mongoose.Types.ObjectId.isValid(id)
+        (id): id is string => isValidObjectIdString(id)
       ) ||
       new Set(ids).size !== ids.length
     ) {
-      return NextResponse.json({
-        success: false,
-        message: "A non-empty array of unique, valid project ids is required",
-      });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "A non-empty array of unique, valid project ids is required",
+        },
+        { status: 400 }
+      );
     }
 
     await connectToDB();

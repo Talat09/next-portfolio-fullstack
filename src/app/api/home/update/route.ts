@@ -1,36 +1,6 @@
-import connectToDB from "@/database";
+// Admin only: requires a valid session (see src/lib/auth.ts); input is validated before any DB access.
 import Home from "@/models/Home";
-import { NextRequest, NextResponse } from "next/server";
+import { makeUpdateHandler } from "@/lib/crud";
 
 export const dynamic = "force-dynamic";
-export async function PUT(req: NextRequest): Promise<NextResponse> {
-  try {
-    await connectToDB();
-    const extractData = await req.json();
-    const { _id, heading, summary } = extractData;
-    const updateData = await Home.findOneAndUpdate(
-      {
-        _id: _id,
-      },
-      { heading, summary },
-      { new: true }
-    );
-    if (updateData) {
-      return NextResponse.json({
-        success: true,
-        message: "updated successfully",
-      });
-    } else {
-      return NextResponse.json({
-        success: false,
-        message: "Something went wrong! Please try again",
-      });
-    }
-  } catch (e) {
-    console.log(e);
-    return NextResponse.json({
-      success: false,
-      message: "Something went wrong! Please try again",
-    });
-  }
-}
+export const PUT = makeUpdateHandler(Home, "home", "Home");

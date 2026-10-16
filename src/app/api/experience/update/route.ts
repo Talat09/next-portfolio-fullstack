@@ -1,42 +1,6 @@
-import connectToDB from "@/database";
+// Admin only: requires a valid session (see src/lib/auth.ts); input is validated before any DB access.
 import Experience from "@/models/Experience";
-import { NextRequest, NextResponse } from "next/server";
+import { makeUpdateHandler } from "@/lib/crud";
 
 export const dynamic = "force-dynamic";
-export async function PUT(req: NextRequest): Promise<NextResponse> {
-  try {
-    await connectToDB();
-    const extractData = await req.json();
-    const { _id, position, company, duration, location, jobprofile } =
-      extractData || {};
-    if (!_id) {
-      return NextResponse.json({
-        success: false,
-        message: "Experience id is required",
-      });
-    }
-    const updateData = await Experience.findByIdAndUpdate(
-      _id,
-      { position, company, duration, location, jobprofile },
-      { new: true }
-    );
-    if (updateData) {
-      return NextResponse.json({
-        success: true,
-        message: "Experience updated successfully",
-        data: updateData,
-      });
-    } else {
-      return NextResponse.json({
-        success: false,
-        message: "Experience not found",
-      });
-    }
-  } catch (e) {
-    console.log(e);
-    return NextResponse.json({
-      success: false,
-      message: "Something went wrong! Please try again",
-    });
-  }
-}
+export const PUT = makeUpdateHandler(Experience, "experience", "Experience");

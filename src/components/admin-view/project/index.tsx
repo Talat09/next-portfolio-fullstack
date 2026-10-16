@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import {
   DndContext,
   KeyboardSensor,
@@ -143,9 +143,11 @@ export default function AdminProjectView({
   const [orderedItems, setOrderedItems] = useState(savedOrder);
   const [savingOrder, setSavingOrder] = useState(false);
 
-  useEffect(() => {
+  const [prevSavedOrder, setPrevSavedOrder] = useState(savedOrder);
+  if (savedOrder !== prevSavedOrder) {
+    setPrevSavedOrder(savedOrder);
     setOrderedItems(savedOrder);
-  }, [savedOrder]);
+  }
 
   const orderChanged =
     orderedItems.length === savedOrder.length &&
