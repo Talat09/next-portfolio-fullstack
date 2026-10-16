@@ -1,10 +1,17 @@
 "use client";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Toaster } from "react-hot-toast";
 
 /** Site-styled toast container. Mount it only where toasts are shown. */
 export default function AppToaster() {
-  return (
+  // Render into <body> so a transformed or overflow-hidden section can never hide the toasts.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return createPortal(
     <Toaster
+      containerStyle={{ zIndex: 99999 }}
       position="top-right"
       toastOptions={{
         duration: 3500,
@@ -25,6 +32,7 @@ export default function AppToaster() {
           iconTheme: { primary: "#dc2626", secondary: "#ffffff" },
         },
       }}
-    />
+    />,
+    document.body
   );
 }

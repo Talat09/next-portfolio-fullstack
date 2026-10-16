@@ -9,6 +9,7 @@ import { Blob, DotGrid, SectionDecor, Squiggle } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import { addData } from "@/services";
 import { siteConfig } from "@/lib/site-config";
+import { sectionHeading, sectionDesc, sectionLabel } from "../typography";
 
 // Defaults used when the Contact Info document (admin > Contact Info) is empty
 const DEFAULT_LABEL = "GET IN TOUCH";
@@ -20,7 +21,7 @@ const DEFAULT_INTRO =
 const DEFAULT_EMAIL = siteConfig.contactEmail;
 const DEFAULT_LOCATION = siteConfig.contactLocation;
 
-// The toast library is fetched only when the first message is shown.
+// The toast container is code-split but mounted up front so the first toast is never missed.
 const AppToaster = dynamic(() => import("../toaster"), { ssr: false });
 
 // Wraps the first (case-sensitive) occurrence of highlight in a green span
@@ -80,10 +81,8 @@ export default function ClientContactView({
   const [formData, setFormData] = useState<ContactData>(initialFormData);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [sending, setSending] = useState(false);
-  const [toasterMounted, setToasterMounted] = useState(false);
 
   async function notify(kind: "success" | "error", message: string) {
-    setToasterMounted(true);
     const { default: toast } = await import("react-hot-toast");
     toast[kind](message);
   }
@@ -128,7 +127,7 @@ export default function ClientContactView({
 
   return (
     <section
-      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 max-[400px]:px-4 sm:px-8 lg:px-8 xl:px-16 mx-auto"
       id="contact"
     >
       <SectionDecor>
@@ -140,17 +139,17 @@ export default function ClientContactView({
       <AnimationWrapper>
         <m.div
           variants={fadeUp}
-          className="relative rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10"
+          className="relative rounded-2xl bg-[#effbf4] p-6 max-[400px]:p-4 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10"
         >
           <div className="relative">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white-500 px-4 py-1.5 text-xs font-semibold text-black-600">
+            <span className={`${sectionLabel} bg-white-500`}>
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {label}
             </span>
-            <h2 className="mt-3 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
+            <h2 className={`${sectionHeading} mt-3`}>
               {renderHighlighted(heading, highlight)}
             </h2>
-            <p className="text-black-500 leading-7 mt-4 max-w-md">
+            <p className={`${sectionDesc} mt-4 max-w-md`}>
               {intro}
             </p>
             <ul className="mt-6 flex flex-wrap gap-6">
@@ -254,7 +253,7 @@ export default function ClientContactView({
           </form>
         </m.div>
       </AnimationWrapper>
-      {toasterMounted ? <AppToaster /> : null}
+      <AppToaster />
     </section>
   );
 }

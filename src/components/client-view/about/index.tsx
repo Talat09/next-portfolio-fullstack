@@ -3,7 +3,7 @@
 import CountUp from "@/components/client-view/count-up";
 import { m, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import type { About } from "@/types";
 import { FaUsers, FaFolder, FaStar, FaCode } from "react-icons/fa";
 import {
@@ -23,10 +23,23 @@ import {
   SiNodedotjs,
   SiFirebase,
   SiTypescript,
+  SiChakraui,
+  SiAntdesign,
+  SiFastify,
+  SiPostgresql,
+  SiSupabase,
+  SiStripe,
+  SiLemonsqueezy,
+  SiGooglemaps,
+  SiX,
+  SiClaude,
+  SiGooglegemini,
 } from "react-icons/si";
+import { TbBrandOpenai, TbFilter, TbBolt, TbVideo, TbBuildingStore } from "react-icons/tb";
 import { Blob, DotGrid, Plus, SectionDecor, Squiggle } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import AboutIllustration from "./illustration";
+import { sectionHeading, sectionDesc, sectionLabel } from "../typography";
 
 const fadeUp: Variants = {
   offscreen: { y: 40, opacity: 0 },
@@ -60,11 +73,32 @@ const skillIcons: Record<string, [IconType, string]> = {
   node: [SiNodedotjs, "#339933"],
   firebase: [SiFirebase, "#FFCA28"],
   typescript: [SiTypescript, "#3178C6"],
+  ts: [SiTypescript, "#3178C6"],
+  chakraui: [SiChakraui, "#319795"],
+  antdesign: [SiAntdesign, "#0170FE"],
+  fastify: [SiFastify, "#000000"],
+  postgresql: [SiPostgresql, "#4169E1"],
+  postgres: [SiPostgresql, "#4169E1"],
+  supabase: [SiSupabase, "#3FCF8E"],
+  stripe: [SiStripe, "#635BFF"],
+  lemonsqueezy: [SiLemonsqueezy, "#FFC233"],
+  clickfunnels: [TbFilter, "#E2412F"],
+  gohighlevel: [TbBolt, "#188BF6"],
+  openai: [TbBrandOpenai, "#000000"],
+  googlemaps: [SiGooglemaps, "#4285F4"],
+  heygen: [TbVideo, "#7559FF"],
+  googlebusinessprofile: [TbBuildingStore, "#4285F4"],
+  grok: [SiX, "#000000"],
+  claude: [SiClaude, "#D97757"],
+  gemini: [SiGooglegemini, "#8E75B2"],
 };
+
+const INITIAL_SKILLS = 17;
 
 function getSkillIcon(skill: string): [IconType, string] {
   const key = skill.toLowerCase().replace(/[\s.\-_]/g, "");
-  return skillIcons[key] || [FaCode, "#0f7a3d"];
+  // "OpenAI API" -> "openai"
+  return skillIcons[key] || skillIcons[key.replace(/api$/, "")] || [FaCode, "#0f7a3d"];
 }
 
 const DEFAULT_WHY_HIRE_LABEL = "WHY HIRE ME";
@@ -124,16 +158,18 @@ export default function ClientAboutView({
     },
   ];
 
+  const [showAllSkills, setShowAllSkills] = useState(false);
   const skills = data?.skills
     ? data.skills
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean)
     : [];
+  const visibleSkills = showAllSkills ? skills : skills.slice(0, INITIAL_SKILLS);
 
   return (
     <section
-      className="relative isolate max-w-screen-xl pt-4 pb-16 lg:pb-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl pt-4 pb-16 lg:pb-24 px-6 max-[400px]:px-4 sm:px-8 lg:px-8 xl:px-16 mx-auto"
       id="about"
     >
       <SectionDecor>
@@ -143,11 +179,11 @@ export default function ClientAboutView({
         <Plus className="right-[18%] bottom-10 w-5 h-5 hidden md:block" />
       </SectionDecor>
       {/* Stats */}
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-4 xl:gap-6">
         {aboutDataInfo.map(({ id, label, value, text, Icon }) => (
           <li
             key={id}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 sm:p-6"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 lg:gap-3 xl:gap-4 bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 sm:p-6 lg:p-4 xl:p-6"
           >
             <span className="w-14 h-14 shrink-0 rounded-full bg-[#e3f7ec] flex items-center justify-center">
               <Icon className="w-6 h-6 text-green-main" aria-hidden="true" />
@@ -157,7 +193,7 @@ export default function ClientAboutView({
                 <CountUp value={value} suffix="+" />
               </p>
               <p className="text-base font-bold text-black-600">{label}</p>
-              <p className="text-[13px] text-black-500">{text}</p>
+              <p className="text-[13px] lg:text-xs xl:text-[13px] text-black-500">{text}</p>
             </div>
           </li>
         ))}
@@ -167,7 +203,7 @@ export default function ClientAboutView({
       <AnimationWrapper className="mt-12">
         <m.div
           variants={fadeUp}
-          className="relative isolate overflow-hidden rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
+          className="relative isolate overflow-hidden rounded-2xl bg-[#effbf4] p-6 max-[400px]:p-4 sm:p-10 lg:p-8 xl:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 xl:gap-10 items-center"
         >
           <SectionDecor contained>
             <Blob className="-right-20 -top-20 w-64 h-64 bg-white-500/60" />
@@ -176,34 +212,50 @@ export default function ClientAboutView({
             <DotGrid className="right-6 bottom-6 hidden lg:grid" />
           </SectionDecor>
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white-500 px-4 py-1.5 text-xs font-semibold tracking-wide text-black-600">
+            <span className={`${sectionLabel} bg-white-500`}>
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {whyHireLabel}
             </span>
-            <h2 className="mt-4 text-[28px] sm:text-4xl lg:text-5xl font-extrabold leading-tight text-black-600">
+            <h2 className={`${sectionHeading} mt-4`}>
               {renderHighlighted(whyHireHeading, whyHireHighlight)}
             </h2>
-            <p className="text-black-500 leading-7 mt-4 mb-6 max-w-[60ch]">{data?.aboutme}</p>
+            <p className={`${sectionDesc} mt-4 mb-6 max-w-[60ch]`}>{data?.aboutme}</p>
             <AboutIllustration />
           </div>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {skills.map((skill, i) => {
+          {/* lg: line the skills up with the illustration, not the heading */}
+          <div className="lg:self-end lg:pb-10">
+          <ul id="skills-list" className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-[400px]:gap-2 lg:gap-3 xl:gap-4">
+            {visibleSkills.map((skill, i) => {
               const [SkillIcon, color] = getSkillIcon(skill);
               return (
                 <li
                   key={i}
-                  className="flex items-center gap-2.5 bg-white-500 rounded-full shadow-sm px-4 py-2.5 text-[13px] sm:text-sm font-semibold text-black-600 min-w-0"
+                  className="flex items-center gap-2.5 max-[400px]:gap-1.5 lg:gap-2 xl:gap-2.5 bg-white-500 rounded-full shadow-sm px-4 max-[400px]:px-2.5 lg:px-3 xl:px-4 py-2.5 text-[13px] max-[400px]:text-[11px] sm:text-sm lg:text-[13px] xl:text-sm font-semibold text-black-600 min-w-0"
                 >
                   <SkillIcon
-                    className="w-5 h-5 shrink-0"
+                    className="w-5 h-5 max-[400px]:w-4 max-[400px]:h-4 shrink-0"
                     style={{ color }}
                     aria-hidden="true"
                   />
-                  <span className="min-w-0 break-words leading-tight">{skill}</span>
+                  <span className="min-w-0 break-words max-[400px]:whitespace-nowrap leading-tight">{skill}</span>
                 </li>
               );
             })}
+            {skills.length > INITIAL_SKILLS && (
+              <li className="flex min-w-0">
+                <button
+                  type="button"
+                  onClick={() => setShowAllSkills((v) => !v)}
+                  aria-expanded={showAllSkills}
+                  aria-controls="skills-list"
+                  className="w-full min-h-11 rounded-full border border-green-main bg-white-500 px-4 max-[400px]:px-2 lg:px-3 xl:px-4 py-2.5 text-[13px] max-[400px]:text-[11px] max-[400px]:whitespace-nowrap sm:text-sm lg:text-[13px] xl:text-sm font-semibold text-green-main transition-colors hover:bg-green-main hover:text-white-500"
+                >
+                  {showAllSkills ? "Show less" : `Show more (+${skills.length - INITIAL_SKILLS})`}
+                </button>
+              </li>
+            )}
           </ul>
+          </div>
         </m.div>
       </AnimationWrapper>
     </section>

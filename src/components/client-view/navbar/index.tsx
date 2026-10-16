@@ -39,7 +39,7 @@ function CreateMenus({ activeLink, getMenuItems, setActiveLink, compact }: Creat
         onSetActive={() => setActiveLink(item.id)}
         className={`${
           compact
-            ? "flex w-full min-h-[44px] items-center justify-center px-1 text-xs"
+            ? "flex w-full min-h-[44px] items-center justify-center px-1 text-xs max-[400px]:px-0.5 max-[400px]:text-[10px]"
             : "inline-block px-4 py-2 text-[15px]"
         } relative font-medium cursor-pointer transition-colors after:absolute after:left-2 after:right-2 after:-bottom-0.5 after:h-[2px] after:rounded-full after:transition-transform ${
           activeLink === item.id
@@ -82,16 +82,16 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto flex items-center justify-between gap-3 py-4">
+        <nav className="max-w-screen-xl px-6 max-[400px]:px-4 sm:px-8 lg:px-8 xl:px-16 mx-auto flex items-center justify-between gap-3 py-4">
           <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               scroller.scrollTo("home", { duration: scrollDuration(600), smooth: "easeInOutCubic", offset: -80 });
             }}
-            className="flex min-h-11 gap-1.5 font-extrabold items-center text-[18px] sm:text-[22px] text-[#111827] shrink-0"
+            className="flex min-h-11 gap-1.5 font-extrabold items-center text-[18px] max-[360px]:text-[16px] sm:text-[22px] text-[#111827] shrink-0"
           >
-            <span className="h-[34px] sm:h-[40px] flex justify-center items-center px-2 sm:px-2.5 rounded-lg bg-green-main text-white-500 text-[18px] sm:text-[22px] font-extrabold shadow-[0_6px_14px_-6px_rgba(15,122,61,0.7)]">
+            <span className="h-[34px] sm:h-[40px] flex justify-center items-center px-2 sm:px-2.5 rounded-lg bg-green-main text-white-500 text-[18px] max-[360px]:text-[16px] sm:text-[22px] font-extrabold shadow-[0_6px_14px_-6px_rgba(15,122,61,0.7)]">
               Talat
             </span>
             Mahmud
@@ -106,7 +106,7 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={scrollToContact}
-            className="btn-primary px-4 sm:px-6 text-sm sm:text-[15px] shrink-0"
+            className="btn-primary px-4 max-[400px]:px-3 max-[400px]:gap-1.5 max-[400px]:text-[13px] max-[360px]:px-2.5 max-[360px]:text-xs sm:px-6 text-sm sm:text-[15px] shrink-0"
           >
             <FaPaperPlane aria-hidden="true" />
             Contact Me
@@ -115,7 +115,7 @@ export default function Navbar() {
       </header>
       <nav
         aria-label="Mobile navigation"
-        className="fixed lg:hidden bottom-0 left-0 right-0 z-30 px-2 sm:px-8 pb-[env(safe-area-inset-bottom)] bg-white-500 shadow-t"
+        className="fixed lg:hidden bottom-0 left-0 right-0 z-30 px-2 max-[400px]:px-1 sm:px-8 pb-[env(safe-area-inset-bottom)] bg-white-500 shadow-t"
       >
         <ul className="grid grid-cols-5 w-full items-center py-1">
           <CreateMenus

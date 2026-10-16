@@ -22,16 +22,22 @@ export default function CountUp({
   const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
   const reduceMotion = useReducedMotion();
   const [display, setDisplay] = useState(0);
+  // On desktop (lg+) the stats are already on screen, so start right away without waiting for a scroll.
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
+  }, []);
+  const shouldStart = inView || isDesktop;
 
   useEffect(() => {
-    if (!isNumber || !inView || reduceMotion) return;
+    if (!isNumber || !shouldStart || reduceMotion) return;
     const controls = animate(0, target, {
       duration,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setDisplay(Math.round(v)),
     });
     return () => controls.stop();
-  }, [inView, isNumber, target, duration, reduceMotion]);
+  }, [shouldStart, isNumber, target, duration, reduceMotion]);
 
   if (!isNumber) return <span>{String(value)}{suffix}</span>;
   const shown = reduceMotion ? target : display;
