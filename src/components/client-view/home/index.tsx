@@ -193,13 +193,13 @@ export default function ClientHomeView({
                 className="object-contain object-bottom pointer-events-none"
               />
             </div>
-            <div className="absolute -left-6 max-[400px]:-left-3 sm:-left-16 top-[24%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 max-[400px]:px-2.5 max-[400px]:py-2.5 flex flex-col items-center text-center w-[124px] max-[400px]:w-[96px]">
+            <div className="hidden md:flex absolute -left-6 max-[400px]:-left-3 sm:-left-16 top-[24%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 max-[400px]:px-2.5 max-[400px]:py-2.5 flex-col items-center text-center w-[124px] max-[400px]:w-[96px]">
               <FaCode className="text-[#1a9e55] w-6 h-6 mb-2" aria-hidden="true" />
               <span className="text-xs font-medium text-[#374151] leading-tight">
                 Turning Ideas Into Reality
               </span>
             </div>
-            <div className="absolute -right-6 max-[400px]:-right-3 sm:-right-12 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 max-[400px]:px-2.5 max-[400px]:py-2.5 flex flex-col items-center text-center w-[132px] max-[400px]:w-[100px]">
+            <div className="hidden md:flex absolute -right-6 max-[400px]:-right-3 sm:-right-12 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 max-[400px]:px-2.5 max-[400px]:py-2.5 flex-col items-center text-center w-[132px] max-[400px]:w-[100px]">
               <FaChartBar className="text-[#1a9e55] w-7 h-7 mb-2" aria-hidden="true" />
               <span className="text-[15px] max-[400px]:text-[13px] font-extrabold text-[#111827]">{yearOfExperience || "0"}+ Years</span>
               <span className="text-xs text-[#4b5563] leading-tight">
