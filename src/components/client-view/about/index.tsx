@@ -180,7 +180,7 @@ export default function ClientAboutView({
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {whyHireLabel}
             </span>
-            <h2 className="mt-4 text-4xl lg:text-5xl font-extrabold leading-tight text-black-600">
+            <h2 className="mt-4 text-[28px] sm:text-4xl lg:text-5xl font-extrabold leading-tight text-black-600">
               {renderHighlighted(whyHireHeading, whyHireHighlight)}
             </h2>
             <p className="text-black-500 leading-7 mt-4 mb-6 max-w-[60ch]">{data?.aboutme}</p>

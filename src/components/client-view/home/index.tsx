@@ -75,7 +75,7 @@ export default function ClientHomeView({
 
       <div className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 pt-6 pb-12 sm:pt-8 sm:pb-16 items-center">
-        <div className="flex flex-col items-start order-2 lg:order-1">
+        <div className="flex flex-col items-start order-2 lg:order-1 mt-8 sm:mt-6 lg:mt-0">
           {/* One h1 for the page: name + role pill and the headline, styled as before */}
           <h1 className="flex flex-col items-start">
           <span className="inline-flex items-center gap-2.5 rounded-full bg-[#e8f6ee] px-4 py-2 text-[13px] font-medium text-[#111827]">
@@ -84,7 +84,7 @@ export default function ClientHomeView({
           </span>
           {/* keeps the pill and headline as separate phrases for screen readers/search */}
           <span className="sr-only"> - </span>
-          <span className="block mt-6 mb-5 text-[44px] sm:text-[56px] lg:text-[60px] xl:text-[64px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
+          <span className="block mt-6 mb-5 text-[34px] sm:text-[48px] md:text-[56px] lg:text-[60px] xl:text-[64px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
             {words.map((item, index) => (
               <span key={index}>
                 <span

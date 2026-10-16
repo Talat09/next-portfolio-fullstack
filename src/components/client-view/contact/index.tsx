@@ -147,7 +147,7 @@ export default function ClientContactView({
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {label}
             </span>
-            <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-black-600">
+            <h2 className="mt-3 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
               {renderHighlighted(heading, highlight)}
             </h2>
             <p className="text-black-500 leading-7 mt-4 max-w-md">

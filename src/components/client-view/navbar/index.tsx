@@ -33,9 +33,9 @@ function CreateMenus({ activeLink, getMenuItems, setActiveLink, compact }: Creat
         to={item.id}
         href={`#${item.id}`}
         spy={true}
-        smooth={true}
+        smooth="easeInOutCubic"
         offset={-80}
-        duration={scrollDuration(1000)}
+        duration={scrollDuration(600)}
         onSetActive={() => setActiveLink(item.id)}
         className={`${
           compact
@@ -67,8 +67,7 @@ export default function Navbar() {
   function scrollToContact(e: MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
     scroller.scrollTo("contact", {
-      duration: scrollDuration(1500),
-      delay: 100,
+      duration: scrollDuration(700),
       smooth: true,
       offset: -80,
     });
@@ -88,7 +87,7 @@ export default function Navbar() {
             href="#home"
             onClick={(e) => {
               e.preventDefault();
-              scroller.scrollTo("home", { duration: scrollDuration(1000), smooth: true, offset: -80 });
+              scroller.scrollTo("home", { duration: scrollDuration(600), smooth: "easeInOutCubic", offset: -80 });
             }}
             className="flex min-h-11 gap-1.5 font-extrabold items-center text-[18px] sm:text-[22px] text-[#111827] shrink-0"
           >

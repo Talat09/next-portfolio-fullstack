@@ -23,7 +23,7 @@ function Pill({ children }: { children: ReactNode }) {
 
 function SectionHeading({ first, highlight }: { first: string; highlight: string }) {
   return (
-    <h2 className="mt-3 mb-6 text-4xl lg:text-5xl font-extrabold text-black-600">
+    <h2 className="mt-3 mb-6 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
       {first} <span className="text-green-brand">{highlight}</span>
     </h2>
   );

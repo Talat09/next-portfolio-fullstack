@@ -53,7 +53,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
             <span className="w-2 h-2 rounded-full bg-green-main" />
             MY WORK
           </span>
-          <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-black-600">
+          <h2 className="mt-3 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
             My <span className="text-green-brand">Projects</span>
           </h2>
         </div>

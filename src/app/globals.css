@@ -10,9 +10,7 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* Smooth scrolling is handled by react-scroll; a CSS smooth scroll here fights its animation and causes lag. */
 
 /* Visible keyboard focus for every interactive element */
 :where(a, button, input, textarea, select, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
