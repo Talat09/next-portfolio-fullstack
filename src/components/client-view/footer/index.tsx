@@ -1,5 +1,6 @@
 "use client";
 import { m } from "framer-motion";
+import { Blob, SectionDecor } from "../decor";
 import { scroller } from "react-scroll";
 import { scrollDuration } from "@/lib/motion";
 import type { IconType } from "react-icons";
@@ -49,7 +50,11 @@ const footerLinks = [
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-[#0b3d26] text-white-500 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+    <footer className="relative isolate overflow-hidden bg-[#0b3d26] text-white-500 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+      <SectionDecor contained>
+        <Blob className="-right-16 -top-20 w-56 h-56 bg-white-500/[0.04]" />
+        <Blob className="-left-12 -bottom-16 w-40 h-40 bg-white-500/[0.04] hidden sm:block" />
+      </SectionDecor>
       <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-16 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
         <div className="text-center md:text-left">
           <p className="flex gap-2 font-bold items-center justify-center md:justify-start text-[20px]">

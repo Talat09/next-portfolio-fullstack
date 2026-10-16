@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 import type { ContactData, ContactInfo, FormControl } from "@/types";
 import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
+import { Blob, DotGrid, SectionDecor, Squiggle } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import { addData } from "@/services";
 import { siteConfig } from "@/lib/site-config";
@@ -127,9 +128,15 @@ export default function ClientContactView({
 
   return (
     <section
-      className="max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="contact"
     >
+      <SectionDecor>
+        <Blob className="-left-24 top-6 w-64 h-64 bg-[#e6f6ec]/70" />
+        <Blob className="-right-20 bottom-4 w-52 h-52 bg-[#eef9f2] hidden sm:block" />
+        <DotGrid className="right-[4%] top-8 hidden md:grid" />
+        <Squiggle className="left-[6%] bottom-8 w-24 hidden md:block" />
+      </SectionDecor>
       <AnimationWrapper>
         <m.div
           variants={fadeUp}

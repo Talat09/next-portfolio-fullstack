@@ -5,6 +5,7 @@ import { scroller } from "react-scroll";
 import { scrollDuration } from "@/lib/motion";
 import type { Project } from "@/types";
 import { FaArrowRight, FaArrowUp } from "react-icons/fa";
+import { Blob, DotGrid, Plus, SectionDecor } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import ProjectCard from "../project-card";
 import { sortByOrderThenUpdated } from "@/lib/sort";
@@ -37,9 +38,15 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
 
   return (
     <section
-      className="max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="projects"
     >
+      <SectionDecor>
+        <Blob className="-right-28 top-16 w-72 h-72 bg-[#e6f6ec]/70" />
+        <Blob className="-left-20 bottom-0 w-56 h-56 bg-[#eef9f2] hidden sm:block" />
+        <DotGrid className="left-[3%] top-12 hidden lg:grid" />
+        <Plus className="left-[42%] top-14 w-5 h-5 hidden md:block" />
+      </SectionDecor>
       <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-[#e3f7ec] px-4 py-1.5 text-xs font-semibold text-black-600">

@@ -7,6 +7,7 @@ import type { IconType } from "react-icons";
 import { siteConfig, type SocialId } from "@/lib/site-config";
 import type { Home } from "@/types";
 import Image from "next/image";
+import { DotGrid } from "../decor";
 import {
   FaFacebookSquare,
   FaLinkedin,
@@ -48,19 +49,6 @@ const socialIcons = ([
     socialLink: siteConfig.social.instagram,
   },
 ] as { id: SocialId; label: string; Icon: IconType; socialLink: string }[]).filter((s) => s.socialLink);
-
-function DotGrid({ className }: { className?: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={`pointer-events-none absolute grid grid-cols-5 gap-2 ${className}`}
-    >
-      {Array.from({ length: 20 }).map((_, i) => (
-        <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#1a9e55]/25" />
-      ))}
-    </div>
-  );
-}
 
 export default function ClientHomeView({
   data,
