@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useRef } from "react";
 import { scroller } from "react-scroll";
 import type { IconType } from "react-icons";
 import type { Home } from "@/types";
@@ -67,14 +68,13 @@ export default function ClientHomeView({
   data?: Home[];
   yearOfExperience?: string | null;
 }) {
+  // area the photo card can be dragged around in (springs back on release)
+  const dragAreaRef = useRef<HTMLDivElement>(null);
   const homeData = data && data.length ? data[0] : null;
   const words = homeData?.heading ? homeData.heading.split(" ") : [];
 
   return (
-    <section
-      className="relative max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto"
-      id="home"
-    >
+    <section className="relative overflow-x-hidden" id="home">
       {/* soft background circles */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-24 -left-40 w-80 h-80 rounded-full bg-[#e6f6ec]/70" />
@@ -84,8 +84,9 @@ export default function ClientHomeView({
         <div className="absolute bottom-10 right-4 w-24 h-24 rounded-full bg-[#e6f6ec]/80" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-6 pt-6 pb-12 sm:pt-8 sm:pb-16 items-center">
-        <div className="flex flex-col items-start order-2 md:order-1">
+      <div className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 pt-6 pb-12 sm:pt-8 sm:pb-16 items-center">
+        <div className="flex flex-col items-start order-2 lg:order-1">
           <span className="inline-flex items-center gap-2.5 rounded-full bg-[#e8f6ee] px-4 py-2 text-[13px] font-medium text-[#111827]">
             <span className="w-2.5 h-2.5 rounded-full bg-[#1a9e55]" />
             Full Stack Web Developer
@@ -156,10 +157,17 @@ export default function ClientHomeView({
           </ul>
         </div>
 
-        <div className="relative flex justify-center order-1 md:order-2 pt-10">
-          <div className="relative w-[290px] h-[330px] sm:w-[340px] sm:h-[380px] lg:w-[360px] lg:h-[400px]">
-            <DotGrid className="-left-14 top-0" />
-            <DotGrid className="-right-24 top-32 hidden sm:grid" />
+        <div ref={dragAreaRef} className="relative flex justify-center lg:justify-end lg:pr-[169px] order-1 lg:order-2 pt-10 lg:pt-14 lg:self-start">
+          <motion.div
+            drag
+            dragConstraints={dragAreaRef}
+            dragElastic={0.5}
+            dragSnapToOrigin
+            dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+            whileDrag={{ scale: 1.03 }}
+            className="relative touch-none select-none cursor-grab active:cursor-grabbing w-[260px] h-[300px] sm:w-[340px] sm:h-[380px] lg:w-[350px] lg:h-[430px]">
+            <DotGrid className="-left-6 sm:-left-14 top-2" />
+            <DotGrid className="-right-24 top-[36%] hidden md:grid" />
             {/* white tilted frame */}
             <div
               aria-hidden="true"
@@ -179,47 +187,50 @@ export default function ClientHomeView({
                 alt="Talat Mahmud"
                 fill
                 priority
-                sizes="(max-width: 640px) 290px, 360px"
-                className="object-contain object-bottom"
+                sizes="(max-width: 640px) 260px, 360px"
+                draggable={false}
+                className="object-contain object-bottom pointer-events-none"
               />
             </div>
-            <div className="absolute -left-12 sm:-left-16 top-[30%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 flex flex-col items-center text-center w-[120px]">
+            <div className="absolute -left-6 sm:-left-16 top-[24%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 flex flex-col items-center text-center w-[120px]">
               <FaCode className="text-[#1a9e55] w-6 h-6 mb-2" aria-hidden="true" />
               <span className="text-[11px] font-medium text-[#374151] leading-tight">
                 Turning Ideas Into Reality
               </span>
             </div>
-            <div className="absolute -right-8 sm:-right-14 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-5 py-4 flex flex-col items-center text-center w-[128px]">
+            <div className="absolute -right-6 sm:-right-12 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-5 py-4 flex flex-col items-center text-center w-[128px]">
               <FaChartBar className="text-[#1a9e55] w-7 h-7 mb-2" aria-hidden="true" />
               <span className="text-[15px] font-extrabold text-[#111827]">{yearOfExperience || "0"}+ Years</span>
               <span className="text-[11px] text-[#4b5563] leading-tight">
                 Building Web Solutions
               </span>
             </div>
-            {/* handwritten signature + squiggle + arrow */}
+            {/* decorative loop above the frame's top-right corner */}
+            <svg aria-hidden="true" width="26" height="30" viewBox="0 0 26 30" className="absolute -top-[78px] -right-10 z-20 text-[#1a9e55] hidden md:block" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M6 10c0-6 12-6 12 1 0 5-8 6-8 11 0 3 4 4 7 2" />
+              <circle cx="20" cy="26" r="1.5" fill="currentColor" />
+            </svg>
+            {/* handwritten signature beside the frame + arrow pointing back at it */}
             <div
               aria-hidden="true"
-              className="absolute -top-14 -right-14 sm:-right-28 text-[#1a9e55] hidden sm:block"
+              className="absolute top-[2%] -right-[165px] z-20 text-[#1a9e55] hidden md:block"
             >
-              <svg width="26" height="30" viewBox="0 0 26 30" className="absolute -left-10 -top-2" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <path d="M6 10c0-6 12-6 12 1 0 5-8 6-8 11 0 3 4 4 7 2" />
-                <circle cx="20" cy="26" r="1.5" fill="currentColor" />
-              </svg>
               <span
-                className="block -rotate-[10deg] text-[26px] leading-[1.05] font-semibold"
+                className="block -rotate-[10deg] text-[20px] leading-[1.05] font-semibold"
                 style={{ fontFamily: "'Segoe Script', 'Brush Script MT', 'Lucida Handwriting', cursive" }}
               >
                 Talat
                 <br />
-                <span className="ml-4">Mahmud</span>
+                <span className="ml-3">Mahmud</span>
               </span>
-              <svg width="50" height="46" viewBox="0 0 50 46" className="ml-6 mt-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M40 4c4 18-6 32-30 34" />
-                <path d="M16 31l-7 7 9 3" />
+              <svg width="44" height="40" viewBox="0 0 44 40" className="ml-8 mt-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M38 3c3 16-6 28-28 31" />
+                <path d="M16 27l-7 7 8 4" />
               </svg>
             </div>
-          </div>
+          </motion.div>
         </div>
+      </div>
       </div>
     </section>
   );
