@@ -55,7 +55,7 @@ export function Footer() {
         <Blob className="-right-16 -top-20 w-56 h-56 bg-white-500/[0.04]" />
         <Blob className="-left-12 -bottom-16 w-40 h-40 bg-white-500/[0.04] hidden sm:block" />
       </SectionDecor>
-      <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-16 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+      <div className="max-w-screen-xl mx-auto px-6 max-[400px]:px-4 sm:px-8 lg:px-8 xl:px-16 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
         <div className="text-center md:text-left">
           <p className="flex gap-2 font-bold items-center justify-center md:justify-start text-[20px]">
             <span className="h-[40px] flex items-center px-3 rounded-lg bg-green-main">

@@ -9,6 +9,7 @@ import { Blob, DotGrid, Plus, SectionDecor } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import ProjectCard from "../project-card";
 import { sortByOrderThenUpdated } from "@/lib/sort";
+import { sectionHeading, sectionLabel } from "../typography";
 
 // How many projects are shown before "View All Projects" is clicked
 const INITIAL_COUNT = 4;
@@ -38,7 +39,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
 
   return (
     <section
-      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 max-[400px]:px-4 sm:px-8 lg:px-8 xl:px-16 mx-auto"
       id="projects"
     >
       <SectionDecor>
@@ -49,11 +50,11 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
       </SectionDecor>
       <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#e3f7ec] px-4 py-1.5 text-xs font-semibold text-black-600">
+          <span className={`${sectionLabel} bg-[#e3f7ec]`}>
             <span className="w-2 h-2 rounded-full bg-green-main" />
             MY WORK
           </span>
-          <h2 className="mt-3 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
+          <h2 className={`${sectionHeading} mt-3`}>
             My <span className="text-green-brand">Projects</span>
           </h2>
         </div>
@@ -79,7 +80,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
         <m.ul
           id="projects-list"
           variants={fadeUp}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 xl:gap-6"
         >
           {visibleProjects.map((item) => (
             <ProjectCard key={item._id || item.name} item={item} />

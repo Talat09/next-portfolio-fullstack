@@ -16,10 +16,10 @@ export default function ProjectCard({ item }: { item: Project }) {
   return (
     <li
       data-project-card
-      className="group bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 flex flex-col"
+      className="group bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 lg:p-4 xl:p-5 flex flex-col"
     >
       {item.image ? (
-        <div className="relative -mx-5 -mt-5 mb-4 aspect-[16/9] overflow-hidden rounded-t-2xl bg-green-tint">
+        <div className="relative -mx-5 -mt-5 lg:-mx-4 lg:-mt-4 xl:-mx-5 xl:-mt-5 mb-4 aspect-[16/9] overflow-hidden rounded-t-2xl bg-green-tint">
           <Image
             src={item.image}
             alt={`${item.name} screenshot`}
@@ -32,14 +32,14 @@ export default function ProjectCard({ item }: { item: Project }) {
       ) : (
       <div
         aria-hidden="true"
-        className="-mx-5 -mt-5 mb-4 h-24 rounded-t-2xl bg-green-tint flex items-center justify-center"
+        className="-mx-5 -mt-5 lg:-mx-4 lg:-mt-4 xl:-mx-5 xl:-mt-5 mb-4 h-24 rounded-t-2xl bg-green-tint flex items-center justify-center"
       >
         <span className="w-12 h-12 rounded-xl bg-white-500 shadow-card flex items-center justify-center">
           <FaCode className="w-6 h-6 text-green-main" />
         </span>
       </div>
       )}
-      <h3 className="text-lg text-black-600 capitalize font-extrabold">
+      <h3 className="text-lg lg:text-base xl:text-lg text-black-600 capitalize font-extrabold">
         {item.name}
       </h3>
       <p className="text-[13px] mt-1 text-black-500">

@@ -73,18 +73,18 @@ export default function ClientHomeView({
         <div className="absolute bottom-10 right-4 w-24 h-24 rounded-full bg-[#e6f6ec]/80" />
       </div>
 
-      <div className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 pt-6 pb-12 sm:pt-8 sm:pb-16 items-center">
-        <div className="flex flex-col items-start order-2 lg:order-1 mt-8 sm:mt-6 lg:mt-0">
+      <div className="max-w-screen-xl px-6 max-[400px]:px-4 sm:px-8 lg:px-8 xl:px-16 mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-10 xl:gap-6 pt-6 pb-12 sm:pt-8 sm:pb-16 items-center">
+        <div className="flex flex-col items-start order-2 lg:order-1 mt-8 max-[399px]:mt-14 sm:mt-6 lg:mt-0">
           {/* One h1 for the page: name + role pill and the headline, styled as before */}
           <h1 className="flex flex-col items-start">
-          <span className="inline-flex items-center gap-2.5 rounded-full bg-[#e8f6ee] px-4 py-2 text-[13px] font-medium text-[#111827]">
+          <span className="inline-flex items-center gap-2.5 max-[400px]:gap-1.5 rounded-full bg-[#e8f6ee] px-4 max-[400px]:px-3 max-[360px]:px-2.5 py-2 text-[13px] max-[400px]:text-[11px] max-[360px]:text-[10px] max-[400px]:whitespace-nowrap font-medium text-[#111827]">
             <span className="w-2.5 h-2.5 rounded-full bg-[#1a9e55]" aria-hidden="true" />
             Talat Mahmud &middot; Full Stack Software Engineer
           </span>
           {/* keeps the pill and headline as separate phrases for screen readers/search */}
           <span className="sr-only"> - </span>
-          <span className="block mt-6 mb-5 text-[34px] sm:text-[48px] md:text-[56px] lg:text-[60px] xl:text-[64px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
+          <span className="block mt-6 mb-5 text-[34px] max-[360px]:text-[30px] sm:text-[48px] md:text-[56px] lg:text-[52px] xl:text-[64px] font-extrabold leading-[1.08] tracking-tight text-[#111827]">
             {words.map((item, index) => (
               <span key={index}>
                 <span
@@ -154,7 +154,7 @@ export default function ClientHomeView({
           </ul>
         </div>
 
-        <div ref={dragAreaRef} className="relative flex justify-center lg:justify-end lg:pr-[169px] order-1 lg:order-2 pt-10 lg:pt-14 lg:self-start">
+        <div ref={dragAreaRef} className="relative flex justify-center lg:justify-end lg:pr-[120px] xl:pr-[169px] order-1 lg:order-2 pt-20 md:pt-10 lg:pt-14 lg:self-start">
           {/* drag needs the full feature set (domMax); loading it lazily delayed LCP in Lighthouse */}
           <LazyMotion features={domMax}>
           <m.div
@@ -164,7 +164,7 @@ export default function ClientHomeView({
             dragSnapToOrigin
             dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
             whileDrag={{ scale: 1.03 }}
-            className="relative touch-none select-none cursor-grab active:cursor-grabbing w-[260px] h-[300px] sm:w-[340px] sm:h-[380px] lg:w-[350px] lg:h-[430px]">
+            className="relative touch-none select-none cursor-grab active:cursor-grabbing w-[260px] h-[300px] max-[400px]:w-[230px] max-[400px]:h-[270px] max-[360px]:w-[200px] max-[360px]:h-[240px] sm:w-[340px] sm:h-[380px] lg:w-[300px] lg:h-[370px] xl:w-[350px] xl:h-[430px]">
             <DotGrid className="-left-6 sm:-left-14 top-2" />
             <DotGrid className="-right-24 top-[36%] hidden md:grid" />
             {/* white tilted frame */}
@@ -193,15 +193,15 @@ export default function ClientHomeView({
                 className="object-contain object-bottom pointer-events-none"
               />
             </div>
-            <div className="absolute -left-6 sm:-left-16 top-[24%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 flex flex-col items-center text-center w-[124px]">
+            <div className="absolute -left-6 max-[400px]:-left-3 sm:-left-16 top-[24%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 max-[400px]:px-2.5 max-[400px]:py-2.5 flex flex-col items-center text-center w-[124px] max-[400px]:w-[96px]">
               <FaCode className="text-[#1a9e55] w-6 h-6 mb-2" aria-hidden="true" />
               <span className="text-xs font-medium text-[#374151] leading-tight">
                 Turning Ideas Into Reality
               </span>
             </div>
-            <div className="absolute -right-6 sm:-right-12 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 flex flex-col items-center text-center w-[132px]">
+            <div className="absolute -right-6 max-[400px]:-right-3 sm:-right-12 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 max-[400px]:px-2.5 max-[400px]:py-2.5 flex flex-col items-center text-center w-[132px] max-[400px]:w-[100px]">
               <FaChartBar className="text-[#1a9e55] w-7 h-7 mb-2" aria-hidden="true" />
-              <span className="text-[15px] font-extrabold text-[#111827]">{yearOfExperience || "0"}+ Years</span>
+              <span className="text-[15px] max-[400px]:text-[13px] font-extrabold text-[#111827]">{yearOfExperience || "0"}+ Years</span>
               <span className="text-xs text-[#4b5563] leading-tight">
                 Building Web Solutions
               </span>
@@ -214,7 +214,7 @@ export default function ClientHomeView({
             {/* handwritten signature beside the frame + arrow pointing back at it */}
             <div
               aria-hidden="true"
-              className="absolute top-[2%] -right-[165px] z-20 text-green-main hidden md:block"
+              className="absolute top-[2%] -right-[165px] lg:-right-[130px] xl:-right-[165px] z-20 text-green-main hidden md:block"
             >
               <span
                 className="block -rotate-[10deg] text-[20px] leading-[1.05] font-semibold"
@@ -225,6 +225,25 @@ export default function ClientHomeView({
                 <span className="ml-3">Mahmud</span>
               </span>
               <svg width="44" height="40" viewBox="0 0 44 40" className="ml-8 mt-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M38 3c3 16-6 28-28 31" />
+                <path d="M16 27l-7 7 8 4" />
+              </svg>
+            </div>
+            {/* small screens: signature sits above the frame's top-left corner, arrow pointing down at it */}
+            <div
+              aria-hidden="true"
+              className="absolute -top-[86px] -left-8 max-[400px]:-left-4 z-20 text-green-main flex items-end gap-0.5 md:hidden"
+            >
+              <span
+                className="block -rotate-[10deg] text-[17px] max-[360px]:text-[15px] leading-[1.05] font-semibold"
+                style={{ fontFamily: "'Segoe Script', 'Brush Script MT', 'Lucida Handwriting', cursive" }}
+              >
+                Talat
+                <br />
+                <span className="ml-3">Mahmud</span>
+              </span>
+              {/* same arrow as desktop, rotated so it runs right from "Mahmud" then down to the frame */}
+              <svg width="30" height="28" viewBox="0 0 44 40" className="-rotate-90 -mb-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M38 3c3 16-6 28-28 31" />
                 <path d="M16 27l-7 7 8 4" />
               </svg>

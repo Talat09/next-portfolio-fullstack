@@ -6,6 +6,7 @@ import type { Education, Experience } from "@/types";
 import { FaBuilding, FaGraduationCap } from "react-icons/fa";
 import { Blob, DotGrid, Plus, SectionDecor, Squiggle } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
+import { sectionHeading, sectionLabel } from "../typography";
 
 const fadeUp: Variants = {
   offscreen: { y: 40, opacity: 0 },
@@ -14,7 +15,7 @@ const fadeUp: Variants = {
 
 function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full bg-[#e3f7ec] px-4 py-1.5 text-xs font-semibold text-black-600">
+    <span className={`${sectionLabel} bg-[#e3f7ec]`}>
       <span className="w-2 h-2 rounded-full bg-green-main" />
       {children}
     </span>
@@ -23,7 +24,7 @@ function Pill({ children }: { children: ReactNode }) {
 
 function SectionHeading({ first, highlight }: { first: string; highlight: string }) {
   return (
-    <h2 className="mt-3 mb-6 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
+    <h2 className={`${sectionHeading} mt-3 mb-6`}>
       {first} <span className="text-green-brand">{highlight}</span>
     </h2>
   );
@@ -83,7 +84,7 @@ export default function ClientExperienceAndEducationView({
 }) {
   return (
     <section
-      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 max-[400px]:px-4 sm:px-8 lg:px-8 xl:px-16 mx-auto"
       id="experience"
     >
       <SectionDecor>
@@ -93,7 +94,7 @@ export default function ClientExperienceAndEducationView({
         <Squiggle className="left-[46%] top-10 w-20 hidden lg:block" />
         <Plus className="left-[3%] bottom-16 w-4 h-4 hidden md:block" />
       </SectionDecor>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 xl:gap-12">
         <AnimationWrapper>
           <m.div variants={fadeUp}>
             <Pill>MY JOURNEY</Pill>
@@ -109,7 +110,7 @@ export default function ClientExperienceAndEducationView({
                       <p className="text-[13px] text-black-500">
                         {experienceItem.duration}
                       </p>
-                      <h3 className="font-bold text-black-600 mt-1">
+                      <h3 className="font-bold text-black-600 mt-1 lg:text-[15px] xl:text-base">
                         {experienceItem.company}
                         {experienceItem.location
                           ? `, ${experienceItem.location}`
@@ -139,7 +140,7 @@ export default function ClientExperienceAndEducationView({
                       <p className="text-[13px] text-black-500">
                         {educationItem.year}
                       </p>
-                      <h3 className="font-bold text-black-600 mt-1">
+                      <h3 className="font-bold text-black-600 mt-1 lg:text-[15px] xl:text-base">
                         {educationItem.college}
                       </h3>
                       <p className="text-sm font-semibold text-black-500 mt-1">
