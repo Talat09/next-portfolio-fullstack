@@ -132,7 +132,7 @@ export default function ClientContactView({
       id="contact"
     >
       <SectionDecor>
-        <Blob className="-left-24 top-6 w-64 h-64 bg-[#e6f6ec]/70" />
+        <Blob className="-left-24 top-6 w-64 h-64 bg-[#e6f6ec]/70 hidden sm:block" />
         <Blob className="-right-20 bottom-4 w-52 h-52 bg-[#eef9f2] hidden sm:block" />
         <DotGrid className="right-[4%] top-8 hidden md:grid" />
         <Squiggle className="left-[6%] bottom-8 w-24 hidden md:block" />
