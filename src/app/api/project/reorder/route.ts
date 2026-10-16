@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { isValidObjectIdString } from "@/lib/validate";
+import { revalidatePortfolio } from "@/lib/revalidate";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +48,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
       }))
     );
 
+    if (result.matchedCount > 0) revalidatePortfolio();
     if (result.matchedCount === 0) {
       return NextResponse.json({
         success: false,

@@ -12,23 +12,34 @@ import type {
   Experience,
   Home as HomeDoc,
   Project,
-  SectionTab,
 } from "@/types";
 import { getSectionData } from "@/lib/data";
 import { buildJsonLd, serializeJsonLd } from "@/lib/seo";
 import profileImage from "@/assets/Talat-Mahmud-image.png";
 
-// Always render with fresh data from the database (same as the old no-store fetch).
-export const dynamic = "force-dynamic";
+// Cached (ISR): rebuilt at most once an hour, and immediately after any admin
+// change (admin routes call revalidatePortfolio()). Contact messages are never read here.
+export const revalidate = 3600;
 
-async function extractAllDatas<T>(
-  currentSection: SectionTab
-): Promise<T[] | undefined> {
-  if (currentSection === "contact") return undefined; // messages are private
-  return (await getSectionData<T>(currentSection)) ?? undefined;
-}
 export default async function Home() {
-  // Load all sections in parallel; each one falls back to empty on failure.
+  // Load all sections in parallel; each one is null when the database is unavailable.
+  const results = await Promise.all([
+    getSectionData<HomeDoc>("home"),
+    getSectionData<About>("about"),
+    getSectionData<Experience>("experience"),
+    getSectionData<Education>("education"),
+    getSectionData<Project>("project"),
+    getSectionData<ContactInfo>("contact-info"),
+  ]);
+  // At runtime, fail the regeneration instead of caching an empty page for an hour:
+  // Next.js then keeps serving the last good version. During `next build` without a
+  // database, render the empty fallback so the build still succeeds.
+  if (
+    results.every((r) => r === null) &&
+    process.env.NEXT_PHASE !== "phase-production-build"
+  ) {
+    throw new Error("Portfolio data is temporarily unavailable");
+  }
   const [
     homeSectionData,
     aboutSectionData,
@@ -36,14 +47,14 @@ export default async function Home() {
     educationSectionData,
     projectSectionData,
     contactInfoSectionData,
-  ] = await Promise.all([
-    extractAllDatas<HomeDoc>("home"),
-    extractAllDatas<About>("about"),
-    extractAllDatas<Experience>("experience"),
-    extractAllDatas<Education>("education"),
-    extractAllDatas<Project>("project"),
-    extractAllDatas<ContactInfo>("contact-info"),
-  ]);
+  ] = results.map((r) => r ?? undefined) as [
+    HomeDoc[] | undefined,
+    About[] | undefined,
+    Experience[] | undefined,
+    Education[] | undefined,
+    Project[] | undefined,
+    ContactInfo[] | undefined,
+  ];
   const jsonLd = buildJsonLd({
     about: aboutSectionData?.[0] ?? null,
     experience: experienceSectionData,
@@ -69,6 +80,7 @@ export default async function Home() {
         data={
           aboutSectionData && aboutSectionData.length ? aboutSectionData[0] : null
         }
+        projectCount={projectSectionData?.length}
       />
       <ClientExperienceAndEducationView
         educationData={educationSectionData}

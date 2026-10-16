@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+﻿/** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV !== "production";
 
 // Remote image hosts (comma-separated hostnames) from IMAGE_REMOTE_HOSTS, see .env.example
@@ -38,6 +38,8 @@ const securityHeaders = [
 
 const nextConfig = {
   poweredByHeader: false,
+  // Hide the floating Next.js dev badge (dev only; it covered the mobile tab bar)
+  devIndicators: false,
   images: {
     remotePatterns: imageHosts.map((hostname) => ({ protocol: "https", hostname })),
   },

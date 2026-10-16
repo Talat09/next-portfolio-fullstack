@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import CountUp from "@/components/client-view/count-up";
 import { motion, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import type { ReactNode } from "react";
@@ -25,7 +25,7 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import AnimationWrapper from "../animation-wrapper";
-import aboutIllustration from "@/assets/1.gif";
+import AboutIllustration from "./illustration";
 
 const fadeUp: Variants = {
   offscreen: { y: 40, opacity: 0 },
@@ -83,7 +83,14 @@ function renderHighlighted(text: string, highlight: string): ReactNode {
   );
 }
 
-export default function ClientAboutView({ data }: { data?: Partial<About> | null }) {
+export default function ClientAboutView({
+  data,
+  projectCount,
+}: {
+  data?: Partial<About> | null;
+  /** Live number of projects in the DB; falls back to the admin-entered value. */
+  projectCount?: number;
+}) {
   const whyHireLabel = data?.whyhirelabel?.trim() || DEFAULT_WHY_HIRE_LABEL;
   const whyHireHeading =
     data?.whyhireheading?.trim() || DEFAULT_WHY_HIRE_HEADING;
@@ -103,7 +110,7 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
     {
       id: 2,
       label: "Projects",
-      value: data?.noofprojects || "0",
+      value: projectCount ? String(projectCount) : data?.noofprojects || "0",
       text: "Successful project delivered",
       Icon: FaFolder,
     },
@@ -129,7 +136,7 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
       id="about"
     >
       {/* Stats */}
-      <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {aboutDataInfo.map(({ id, label, value, text, Icon }) => (
           <li
             key={id}
@@ -139,7 +146,9 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
               <Icon className="w-6 h-6 text-green-main" aria-hidden="true" />
             </span>
             <div>
-              <p className="text-3xl font-extrabold text-black-600">{value}+</p>
+              <p className="text-3xl font-extrabold text-black-600">
+                <CountUp value={value} suffix="+" />
+              </p>
               <p className="text-base font-bold text-black-600">{label}</p>
               <p className="text-[13px] text-black-500">{text}</p>
             </div>
@@ -162,12 +171,7 @@ export default function ClientAboutView({ data }: { data?: Partial<About> | null
               {renderHighlighted(whyHireHeading, whyHireHighlight)}
             </h2>
             <p className="text-black-500 leading-7 mt-4 mb-6 max-w-[60ch]">{data?.aboutme}</p>
-            <Image
-              src={aboutIllustration}
-              alt="Developer working at a desk illustration"
-              unoptimized
-              className="w-full max-w-[420px] h-auto"
-            />
+            <AboutIllustration />
           </div>
           <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {skills.map((skill, i) => {

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import type { ReactNode } from "react";
@@ -30,7 +30,7 @@ function SectionHeading({ first, highlight }: { first: string; highlight: string
 
 function TimelineList({ children }: { children: ReactNode }) {
   return (
-    <ol className="relative border-l-2 border-green-main ml-3 space-y-6">
+    <ol className="relative border-l-2 border-green-main ml-2 sm:ml-3 space-y-6">
       {children}
     </ol>
   );
@@ -46,18 +46,25 @@ function TimelineCard({
   tag?: string;
 }) {
   return (
-    <li className="relative pl-8">
+    <li className="relative pl-6 sm:pl-8">
       <span
         aria-hidden="true"
         className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-green-main ring-4 ring-[#e3f7ec]"
       />
-      <div className="bg-white-500 rounded-2xl shadow-card border border-gray-100 p-5 flex gap-4 items-start">
-        <span className="w-11 h-11 shrink-0 rounded-xl bg-[#e3f7ec] flex items-center justify-center">
+      <div className="bg-white-500 rounded-2xl shadow-card border border-gray-100 p-4 sm:p-5 flex gap-3 sm:gap-4 items-start">
+        <span className="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-xl bg-[#e3f7ec] flex items-center justify-center">
           <Icon className="w-5 h-5 text-green-main" aria-hidden="true" />
         </span>
-        <div className="flex-1 min-w-0">{children}</div>
+        <div className="flex-1 min-w-0">
+          {tag ? (
+            <span className="sm:hidden mb-1.5 inline-block rounded-full bg-green-tint text-green-main text-xs font-semibold px-2.5 py-0.5">
+              {tag}
+            </span>
+          ) : null}
+          {children}
+        </div>
         {tag ? (
-          <span className="shrink-0 rounded-full bg-green-tint text-green-main text-xs font-semibold px-3 py-1">
+          <span className="hidden sm:inline-block shrink-0 rounded-full bg-green-tint text-green-main text-xs font-semibold px-3 py-1">
             {tag}
           </span>
         ) : null}

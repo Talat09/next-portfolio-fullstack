@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { FormControl, LoginFormData } from "@/types";
 import FormControls, { primaryButtonClass } from "../form-controls";
@@ -26,7 +26,7 @@ interface LoginProps {
 
 export default function Login({ formData, setFormData, handleLogin }: LoginProps) {
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4 bg-[#f6fbf8] overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center px-4 py-8 bg-[#f6fbf8] overflow-hidden overflow-x-clip">
       <div aria-hidden="true" className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#e6f6ec]" />
       <div aria-hidden="true" className="absolute -bottom-24 -right-16 w-96 h-96 rounded-full bg-[#e6f6ec]" />
       <form
@@ -34,7 +34,7 @@ export default function Login({ formData, setFormData, handleLogin }: LoginProps
           e.preventDefault();
           handleLogin();
         }}
-        className="relative w-full max-w-md rounded-2xl bg-white-500 p-8 shadow-[0_20px_50px_-20px_rgba(15,122,61,0.3)] border border-[#eef3f0]"
+        className="relative w-full max-w-md rounded-2xl bg-white-500 p-6 sm:p-8 shadow-[0_20px_50px_-20px_rgba(15,122,61,0.3)] border border-[#eef3f0]"
       >
         <div className="flex items-center gap-1.5 text-[22px] font-extrabold text-[#111827]">
           <span className="h-[40px] flex items-center px-2.5 rounded-[8px] bg-[#1a9e55] text-white-500">

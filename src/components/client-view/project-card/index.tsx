@@ -1,4 +1,4 @@
-import { FaGlobe, FaGithub, FaCode } from "react-icons/fa";
+﻿import { FaGlobe, FaGithub, FaCode } from "react-icons/fa";
 import Image from "next/image";
 import type { Project } from "@/types";
 
@@ -11,7 +11,7 @@ function isCloudinary(url: string): boolean {
   }
 }
 
-/** Shared project card used on the homepage and on /projects */
+/** Project card used in the homepage projects grid */
 export default function ProjectCard({ item }: { item: Project }) {
   return (
     <li

@@ -3,6 +3,7 @@ import type { Model } from "mongoose";
 import { NextResponse, type NextRequest } from "next/server";
 import connectToDB from "@/database";
 import { requireAdmin } from "./auth";
+import { revalidatePortfolio } from "./revalidate";
 import {
   isPlainObject,
   isValidObjectIdString,
@@ -38,6 +39,7 @@ export function makeAddHandler(model: AnyModel, section: Section, options: AddOp
         return bad("This item already exists. Please update it instead.", 409);
       }
       const saved = await model.create(parsed.data);
+      if (saved) revalidatePortfolio();
       return saved
         ? NextResponse.json({
             success: true,
@@ -67,6 +69,7 @@ export function makeUpdateHandler(model: AnyModel, section: Section, label: stri
         new: true,
         runValidators: true,
       });
+      if (updated) revalidatePortfolio();
       return updated
         ? NextResponse.json({
             success: true,
@@ -96,6 +99,7 @@ export function makeDeleteHandler(model: AnyModel, section: Section, label: stri
     try {
       await connectToDB();
       const deleted = await model.findByIdAndDelete(id);
+      if (deleted) revalidatePortfolio();
       return deleted
         ? NextResponse.json({
             success: true,

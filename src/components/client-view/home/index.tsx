@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { scroller } from "react-scroll";
@@ -193,22 +193,24 @@ export default function ClientHomeView({
                 src={profileImage}
                 alt="Talat Mahmud - Full Stack Software Engineer"
                 fill
-                priority
-                sizes="(max-width: 640px) 260px, 360px"
+                preload
+                fetchPriority="high"
+                placeholder="blur"
+                sizes="(min-width: 640px) 350px, 260px"
                 draggable={false}
                 className="object-contain object-bottom pointer-events-none"
               />
             </div>
-            <div className="absolute -left-6 sm:-left-16 top-[24%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 flex flex-col items-center text-center w-[120px]">
+            <div className="absolute -left-6 sm:-left-16 top-[24%] bg-white-500 rounded-xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 flex flex-col items-center text-center w-[124px]">
               <FaCode className="text-[#1a9e55] w-6 h-6 mb-2" aria-hidden="true" />
-              <span className="text-[11px] font-medium text-[#374151] leading-tight">
+              <span className="text-xs font-medium text-[#374151] leading-tight">
                 Turning Ideas Into Reality
               </span>
             </div>
-            <div className="absolute -right-6 sm:-right-12 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-5 py-4 flex flex-col items-center text-center w-[128px]">
+            <div className="absolute -right-6 sm:-right-12 bottom-0 bg-white-500 rounded-2xl shadow-[0_12px_30px_-10px_rgba(0,0,0,0.2)] px-4 py-4 flex flex-col items-center text-center w-[132px]">
               <FaChartBar className="text-[#1a9e55] w-7 h-7 mb-2" aria-hidden="true" />
               <span className="text-[15px] font-extrabold text-[#111827]">{yearOfExperience || "0"}+ Years</span>
-              <span className="text-[11px] text-[#4b5563] leading-tight">
+              <span className="text-xs text-[#4b5563] leading-tight">
                 Building Web Solutions
               </span>
             </div>
