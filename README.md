@@ -1,4 +1,4 @@
-﻿# Talat Mahmud — Portfolio
+# Talat Mahmud — Portfolio
 
 Personal portfolio of **Talat Mahmud**, Full Stack Software Engineer.
 Live: [talat-mahmud-portfolio.vercel.app](https://talat-mahmud-portfolio.vercel.app)
@@ -18,8 +18,8 @@ I build responsive, SEO-friendly and performance-optimized web applications, and
 **Find me on:**
 [GitHub](https://github.com/Talat09) ·
 [LinkedIn](https://www.linkedin.com/in/talat09/) ·
-[Facebook](https://www.facebook.com/profile.php?id=100010332459337) ·
-[Instagram](https://www.instagram.com/dihan.talat/)
+[Facebook](https://www.facebook.com/talatmahmud.dihan/) ·
+[Instagram](https://www.instagram.com/talatmahmud.dihan)
 
 ## Tech Stack
 
