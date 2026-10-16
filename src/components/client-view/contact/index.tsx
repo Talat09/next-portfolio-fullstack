@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 import type { ContactData, ContactInfo, FormControl } from "@/types";
 import { FaEnvelope, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
+import { Blob, DotGrid, SectionDecor, Squiggle } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import { addData } from "@/services";
-import toast from "react-hot-toast";
 import { siteConfig } from "@/lib/site-config";
 
 // Defaults used when the Contact Info document (admin > Contact Info) is empty
@@ -18,6 +19,9 @@ const DEFAULT_INTRO =
 // Email/location fallbacks come from NEXT_PUBLIC_CONTACT_EMAIL / NEXT_PUBLIC_CONTACT_LOCATION
 const DEFAULT_EMAIL = siteConfig.contactEmail;
 const DEFAULT_LOCATION = siteConfig.contactLocation;
+
+// The toast library is fetched only when the first message is shown.
+const AppToaster = dynamic(() => import("../toaster"), { ssr: false });
 
 // Wraps the first (case-sensitive) occurrence of highlight in a green span
 function renderHighlighted(text: string, highlight: string): ReactNode {
@@ -76,6 +80,13 @@ export default function ClientContactView({
   const [formData, setFormData] = useState<ContactData>(initialFormData);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [sending, setSending] = useState(false);
+  const [toasterMounted, setToasterMounted] = useState(false);
+
+  async function notify(kind: "success" | "error", message: string) {
+    setToasterMounted(true);
+    const { default: toast } = await import("react-hot-toast");
+    toast[kind](message);
+  }
   // honeypot: hidden from people, bots tend to fill it
   const [company, setCompany] = useState("");
 
@@ -87,9 +98,9 @@ export default function ClientContactView({
     if (res && res.success) {
       setFormData(initialFormData);
       setShowSuccessMessage(true);
-      toast.success(res?.message || "Message sent successfully");
+      notify("success", res?.message || "Message sent successfully");
     } else {
-      toast.error(res?.message || "Could not send your message. Please try again.");
+      notify("error", res?.message || "Could not send your message. Please try again.");
     }
   }
 
@@ -117,11 +128,17 @@ export default function ClientContactView({
 
   return (
     <section
-      className="max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="contact"
     >
+      <SectionDecor>
+        <Blob className="-left-24 top-6 w-64 h-64 bg-[#e6f6ec]/70 hidden sm:block" />
+        <Blob className="-right-20 bottom-4 w-52 h-52 bg-[#eef9f2] hidden sm:block" />
+        <DotGrid className="right-[4%] top-8 hidden md:grid" />
+        <Squiggle className="left-[6%] bottom-8 w-24 hidden md:block" />
+      </SectionDecor>
       <AnimationWrapper>
-        <motion.div
+        <m.div
           variants={fadeUp}
           className="relative rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10"
         >
@@ -130,7 +147,7 @@ export default function ClientContactView({
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {label}
             </span>
-            <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-black-600">
+            <h2 className="mt-3 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
               {renderHighlighted(heading, highlight)}
             </h2>
             <p className="text-black-500 leading-7 mt-4 max-w-md">
@@ -167,7 +184,7 @@ export default function ClientContactView({
             onSubmit={(e) => {
               e.preventDefault();
               if (isValidForm()) handleSendMessage();
-              else toast.error("Please fill in your name, email and message.");
+              else notify("error", "Please fill in your name, email and message.");
             }}
           >
             <div aria-hidden="true" className="hidden">
@@ -235,8 +252,9 @@ export default function ClientContactView({
               {sending ? "Sending..." : "Send Message"}
             </button>
           </form>
-        </motion.div>
+        </m.div>
       </AnimationWrapper>
+      {toasterMounted ? <AppToaster /> : null}
     </section>
   );
 }

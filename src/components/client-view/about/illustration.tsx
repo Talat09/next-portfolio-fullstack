@@ -27,6 +27,7 @@ export default function AboutIllustration() {
   }, []);
 
   return (
+    <div role="img" aria-label="Developer working at a desk illustration" className="w-full max-w-[420px]">
     <video
       ref={ref}
       width={640}
@@ -36,12 +37,12 @@ export default function AboutIllustration() {
       playsInline
       preload="metadata"
       poster="/media/about-illustration-poster.webp"
-      aria-label="Developer working at a desk illustration"
-      role="img"
-      className="w-full max-w-[420px] h-auto"
+      aria-hidden="true"
+      className="block w-full h-auto"
     >
       <source src="/media/about-illustration.webm" type="video/webm" />
       <source src="/media/about-illustration.mp4" type="video/mp4" />
     </video>
+    </div>
   );
 }

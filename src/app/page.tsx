@@ -68,6 +68,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
+      <main id="main" tabIndex={-1} className="outline-none overflow-x-clip">
       <ClientHomeView
         data={homeSectionData}
         yearOfExperience={
@@ -94,6 +95,7 @@ export default async function Home() {
             : null
         }
       />
+      </main>
       <Footer />
     </div>
   );

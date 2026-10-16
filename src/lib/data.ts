@@ -31,6 +31,17 @@ const models: Record<PublicSection, Model<any>> = {
   "contact-info": ContactInfo,
 };
 
+// Keep the page payload small: no __v anywhere; timestamps only where used
+// (project cards show createdAt and sort by updatedAt).
+const SECTION_PROJECTION: Record<PublicSection, string> = {
+  home: "-__v -createdAt -updatedAt",
+  about: "-__v -createdAt -updatedAt",
+  experience: "-__v -createdAt -updatedAt",
+  education: "-__v -createdAt -updatedAt",
+  project: "-__v",
+  "contact-info": "-__v -createdAt -updatedAt",
+};
+
 /** One hour; admin writes purge the "portfolio" tag immediately (see revalidate.ts). */
 const SECTION_CACHE_SECONDS = 3600;
 
@@ -40,7 +51,10 @@ const loadSection = unstable_cache(
     await connectToDB();
     // connectToDB logs and swallows errors; don't let queries sit in Mongoose's buffer.
     if (mongoose.connection.readyState !== 1) throw new Error("database unavailable");
-    const docs = await models[section].find({}).maxTimeMS(4_000).lean();
+    const docs = await models[section]
+      .find({}, SECTION_PROJECTION[section])
+      .maxTimeMS(4_000)
+      .lean();
     return JSON.parse(JSON.stringify(docs)) as unknown[];
   },
   ["portfolio-section"],

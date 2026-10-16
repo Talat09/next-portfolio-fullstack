@@ -10,9 +10,7 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* Smooth scrolling is handled by react-scroll; a CSS smooth scroll here fights its animation and causes lag. */
 
 /* Visible keyboard focus for every interactive element */
 :where(a, button, input, textarea, select, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
@@ -167,3 +165,14 @@ circle {
   stroke: red;
 }
 
+
+/* Gentle float for decorative section shapes (disabled for reduced motion). */
+@keyframes decor-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@layer utilities {
+  .decor-float {
+    animation: decor-float 7s ease-in-out infinite;
+  }
+}

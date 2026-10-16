@@ -1,9 +1,10 @@
-﻿"use client";
-import { motion, type Variants } from "framer-motion";
+"use client";
+import { m, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import type { ReactNode } from "react";
 import type { Education, Experience } from "@/types";
 import { FaBuilding, FaGraduationCap } from "react-icons/fa";
+import { Blob, DotGrid, Plus, SectionDecor, Squiggle } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 
 const fadeUp: Variants = {
@@ -22,7 +23,7 @@ function Pill({ children }: { children: ReactNode }) {
 
 function SectionHeading({ first, highlight }: { first: string; highlight: string }) {
   return (
-    <h2 className="mt-3 mb-6 text-4xl lg:text-5xl font-extrabold text-black-600">
+    <h2 className="mt-3 mb-6 text-[28px] sm:text-4xl lg:text-5xl font-extrabold text-black-600">
       {first} <span className="text-green-brand">{highlight}</span>
     </h2>
   );
@@ -82,12 +83,19 @@ export default function ClientExperienceAndEducationView({
 }) {
   return (
     <section
-      className="max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl py-16 lg:py-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="experience"
     >
+      <SectionDecor>
+        <Blob className="-left-32 top-1/4 w-80 h-80 bg-[#e6f6ec]/60" />
+        <Blob className="-right-16 bottom-10 w-48 h-48 bg-[#eef9f2] hidden sm:block" />
+        <DotGrid className="right-[5%] top-14 hidden md:grid" />
+        <Squiggle className="left-[46%] top-10 w-20 hidden lg:block" />
+        <Plus className="left-[3%] bottom-16 w-4 h-4 hidden md:block" />
+      </SectionDecor>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <AnimationWrapper>
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <Pill>MY JOURNEY</Pill>
             <SectionHeading first="My" highlight="Experience" />
             <TimelineList>
@@ -114,11 +122,11 @@ export default function ClientExperienceAndEducationView({
                   ))
                 : null}
             </TimelineList>
-          </motion.div>
+          </m.div>
         </AnimationWrapper>
 
         <AnimationWrapper>
-          <motion.div variants={fadeUp}>
+          <m.div variants={fadeUp}>
             <Pill>MY ACADEMIC BACKGROUND</Pill>
             <SectionHeading first="My" highlight="Education" />
             <TimelineList>
@@ -141,7 +149,7 @@ export default function ClientExperienceAndEducationView({
                   ))
                 : null}
             </TimelineList>
-          </motion.div>
+          </m.div>
         </AnimationWrapper>
       </div>
     </section>

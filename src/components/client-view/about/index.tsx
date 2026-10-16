@@ -1,7 +1,7 @@
 "use client";
 
 import CountUp from "@/components/client-view/count-up";
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import type { ReactNode } from "react";
 import type { About } from "@/types";
@@ -24,6 +24,7 @@ import {
   SiFirebase,
   SiTypescript,
 } from "react-icons/si";
+import { Blob, DotGrid, Plus, SectionDecor, Squiggle } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import AboutIllustration from "./illustration";
 
@@ -132,9 +133,15 @@ export default function ClientAboutView({
 
   return (
     <section
-      className="max-w-screen-xl pt-4 pb-16 lg:pb-24 px-6 sm:px-8 lg:px-16 mx-auto"
+      className="relative isolate max-w-screen-xl pt-4 pb-16 lg:pb-24 px-6 sm:px-8 lg:px-16 mx-auto"
       id="about"
     >
+      <SectionDecor>
+        <Blob className="-right-24 top-40 w-72 h-72 bg-[#e6f6ec]/70" />
+        <Blob className="-left-16 bottom-24 w-44 h-44 bg-[#eef9f2] hidden sm:block" />
+        <DotGrid className="right-[6%] top-6 hidden lg:grid" />
+        <Plus className="right-[18%] bottom-10 w-5 h-5 hidden md:block" />
+      </SectionDecor>
       {/* Stats */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {aboutDataInfo.map(({ id, label, value, text, Icon }) => (
@@ -158,16 +165,22 @@ export default function ClientAboutView({
 
       {/* Why hire me */}
       <AnimationWrapper className="mt-12">
-        <motion.div
+        <m.div
           variants={fadeUp}
-          className="rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
+          className="relative isolate overflow-hidden rounded-2xl bg-[#effbf4] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
         >
+          <SectionDecor contained>
+            <Blob className="-right-20 -top-20 w-64 h-64 bg-white-500/60" />
+            <Blob className="-left-10 -bottom-12 w-40 h-40 bg-[#e3f7ec]" />
+            <Squiggle className="right-8 top-8 w-24 hidden sm:block" />
+            <DotGrid className="right-6 bottom-6 hidden lg:grid" />
+          </SectionDecor>
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white-500 px-4 py-1.5 text-xs font-semibold tracking-wide text-black-600">
               <span className="w-2 h-2 rounded-full bg-green-main" />
               {whyHireLabel}
             </span>
-            <h2 className="mt-4 text-4xl lg:text-5xl font-extrabold leading-tight text-black-600">
+            <h2 className="mt-4 text-[28px] sm:text-4xl lg:text-5xl font-extrabold leading-tight text-black-600">
               {renderHighlighted(whyHireHeading, whyHireHighlight)}
             </h2>
             <p className="text-black-500 leading-7 mt-4 mb-6 max-w-[60ch]">{data?.aboutme}</p>
@@ -191,7 +204,7 @@ export default function ClientAboutView({
               );
             })}
           </ul>
-        </motion.div>
+        </m.div>
       </AnimationWrapper>
     </section>
   );

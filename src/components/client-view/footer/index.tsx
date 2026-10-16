@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
+import { Blob, SectionDecor } from "../decor";
 import { scroller } from "react-scroll";
 import { scrollDuration } from "@/lib/motion";
 import type { IconType } from "react-icons";
@@ -49,16 +50,20 @@ const footerLinks = [
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-[#0b3d26] text-white-500 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+    <footer className="relative isolate overflow-hidden bg-[#0b3d26] text-white-500 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+      <SectionDecor contained>
+        <Blob className="-right-16 -top-20 w-56 h-56 bg-white-500/[0.04]" />
+        <Blob className="-left-12 -bottom-16 w-40 h-40 bg-white-500/[0.04] hidden sm:block" />
+      </SectionDecor>
       <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-16 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
-        <div>
-          <p className="flex gap-2 font-bold items-center text-[20px]">
+        <div className="text-center md:text-left">
+          <p className="flex gap-2 font-bold items-center justify-center md:justify-start text-[20px]">
             <span className="h-[40px] flex items-center px-3 rounded-lg bg-green-main">
               Talat
             </span>
             Mahmud
           </p>
-          <p className="text-sm text-gray-400 mt-3 max-w-xs">
+          <p className="text-sm text-gray-400 mt-3 max-w-xs mx-auto md:mx-0">
             Building modern web experiences with clean code and great ideas.
           </p>
         </div>
@@ -66,7 +71,7 @@ export function Footer() {
           <ul className="flex gap-3">
             {socialIcons.map(({ id, label, Icon, socialLink }) => (
               <li key={id}>
-                <motion.a
+                <m.a
                   href={socialLink}
                   target="_blank"
                   rel="me noopener noreferrer"
@@ -77,7 +82,7 @@ export function Footer() {
                   className="w-11 h-11 flex items-center justify-center rounded-lg bg-white-500/10 hover:bg-green-main transition-colors"
                 >
                   <Icon className="w-4 h-4" aria-hidden="true" />
-                </motion.a>
+                </m.a>
               </li>
             ))}
           </ul>

@@ -92,6 +92,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} text-black-600`}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-lg focus:bg-white-500 focus:px-4 focus:py-2 focus:font-semibold focus:text-green-main focus:shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-green-main"
+        >
+          Skip to content
+        </a>
         <CommonLayout>{children}</CommonLayout>
       </body>
     </html>
