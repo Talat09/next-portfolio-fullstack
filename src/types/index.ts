@@ -46,6 +46,8 @@ export interface ProjectData {
   website: string;
   technologies: string;
   github: string;
+  /** URL slug for /projects/<slug>; empty = derived from the name */
+  slug?: string;
   /** One-line summary shown under the name (optional) */
   tagline?: string;
   /** Full multi-line description (optional) */

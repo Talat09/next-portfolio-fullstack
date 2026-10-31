@@ -44,6 +44,7 @@ export const FIELD_RULES: Record<Section, Record<string, FieldRule>> = {
   },
   project: {
     name: { max: SHORT },
+    slug: { max: 100 },
     tagline: { max: SHORT },
     description: { max: 3000 },
     keyFeatures: { max: 3000 },

@@ -25,6 +25,7 @@ import { sortByOrderThenUpdated } from "@/lib/sort";
 import Image from "next/image";
 import FormControls, { AdminCard, primaryButtonClass } from "../form-controls";
 import ImageUpload from "../image-upload";
+import { slugify } from "@/lib/project";
 
 const controls: FormControl[] = [
   {
@@ -32,6 +33,13 @@ const controls: FormControl[] = [
     placeholder: "e.g. Lead Marketing Global",
     type: "text",
     label: "Project Name",
+  },
+  {
+    name: "slug",
+    placeholder: "e.g. project-ota (auto from name if empty)",
+    type: "text",
+    label: "URL Slug (optional)",
+    helperText: "Page address: /projects/<slug>. Auto-filled from the name; lowercase letters, numbers and dashes.",
   },
   {
     name: "tagline",
@@ -218,7 +226,17 @@ export default function AdminProjectView({
         <FormControls
           controls={controls}
           formData={formData}
-          setFormData={setFormData}
+          setFormData={(next) => {
+            const d = next as ProjectData;
+            // Keep the slug in sync with the name until the admin edits it by hand
+            const autoSlug = !formData.slug || formData.slug === slugify(formData.name);
+            if (d.name !== formData.name && autoSlug && d.slug === formData.slug) {
+              d.slug = slugify(d.name);
+            } else if (d.slug !== formData.slug) {
+              d.slug = (d.slug || "").toLowerCase().replace(/[^a-z0-9-]+/g, "-");
+            }
+            setFormData(d);
+          }}
         />
         <ImageUpload
           key={editingProjectId || "new"}
