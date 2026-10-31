@@ -4,6 +4,9 @@ import type { ProjectData } from "@/types";
 const ProjectSchema = new Schema<ProjectData>(
   {
     name: String,
+    tagline: String,
+    description: String,
+    keyFeatures: String,
     website: String,
     technologies: String,
     github: String,

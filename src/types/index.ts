@@ -46,6 +46,12 @@ export interface ProjectData {
   website: string;
   technologies: string;
   github: string;
+  /** One-line summary shown under the name (optional) */
+  tagline?: string;
+  /** Full multi-line description (optional) */
+  description?: string;
+  /** Key features, one per line (optional) */
+  keyFeatures?: string;
   /** Project screenshot URL (Cloudinary secure_url); empty = no image */
   image?: string;
   /** Display position set via admin drag-and-drop (0 = first) */

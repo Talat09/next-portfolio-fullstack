@@ -34,6 +34,27 @@ const controls: FormControl[] = [
     label: "Project Name",
   },
   {
+    name: "tagline",
+    placeholder: "e.g. Book a party bus in minutes",
+    type: "text",
+    label: "Tagline (optional)",
+    helperText: "One short line shown under the project name.",
+  },
+  {
+    name: "description",
+    placeholder: "What the project does, who it is for and why it matters.",
+    type: "textarea",
+    label: "Description (optional)",
+    helperText: "The card shows the first few lines; the full text opens in View details.",
+  },
+  {
+    name: "keyFeatures",
+    placeholder: "Online booking with instant quotes\nAdmin dashboard\nSecure payments",
+    type: "textarea",
+    label: "Key Features (optional)",
+    helperText: "One feature per line; each line becomes a bullet.",
+  },
+  {
     name: "technologies",
     placeholder: "e.g. React JS, Tailwind CSS, MongoDB",
     type: "text",
@@ -279,6 +300,14 @@ export default function AdminProjectView({
                       </div>
                     ) : null}
                     <p className="font-bold text-[#111827] break-words pr-10">{item.name}</p>
+                    {item.tagline ? <p className="mt-1 text-[#4b5563] break-words italic">{item.tagline}</p> : null}
+                    {item.description || item.keyFeatures ? (
+                      <p className="mt-1 text-xs text-[#6b7280]">
+                        {item.description ? "Has description" : ""}
+                        {item.description && item.keyFeatures ? " \u00b7 " : ""}
+                        {item.keyFeatures ? `${item.keyFeatures.split("\n").filter((l) => l.trim()).length} key features` : ""}
+                      </p>
+                    ) : null}
                     <p className="mt-1 text-[#4b5563] break-words"><span className="font-semibold text-[#111827]">technologies:</span> {item.technologies}</p>
                     <p className="mt-1 text-[#4b5563] break-words"><span className="font-semibold text-[#111827]">website:</span> {item.website}</p>
                     <p className="mt-1 text-[#4b5563] break-words"><span className="font-semibold text-[#111827]">github:</span> {item.github}</p>
