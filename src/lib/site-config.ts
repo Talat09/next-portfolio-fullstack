@@ -45,10 +45,16 @@ export const siteConfig = {
   /** Google Search Console HTML-tag verification token (optional). */
   googleSiteVerification: clean(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION),
   /** Other names people may search for, comma-separated (optional). */
-  personAltNames: clean(process.env.NEXT_PUBLIC_PERSON_ALT_NAMES)
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean),
+  personAltNames: [
+    ...new Set([
+      "Dihan",
+      "Talat Mahmud Dihan",
+      ...clean(process.env.NEXT_PUBLIC_PERSON_ALT_NAMES)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean),
+    ]),
+  ],
   social: {
     facebook: cleanProfileUrl(process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK),
     github: cleanProfileUrl(process.env.NEXT_PUBLIC_SOCIAL_GITHUB),
