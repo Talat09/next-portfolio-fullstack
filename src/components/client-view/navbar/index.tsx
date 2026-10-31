@@ -57,6 +57,16 @@ export default function Navbar() {
   const [activeLink, setActiveLink] = useState<string>("home");
   const [scrollActive, setScrollActive] = useState(false);
 
+  // Arriving from another page via /#section: scroll there with the navbar offset.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id || !document.getElementById(id)) return;
+    const t = window.setTimeout(() => {
+      scroller.scrollTo(id, { duration: scrollDuration(600), smooth: "easeInOutCubic", offset: -80 });
+    }, 150);
+    return () => window.clearTimeout(t);
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setScrollActive(window.scrollY > 20);
     onScroll();

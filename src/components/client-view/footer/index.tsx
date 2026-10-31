@@ -2,6 +2,8 @@
 import { m } from "framer-motion";
 import { Blob, SectionDecor } from "../decor";
 import { scroller } from "react-scroll";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { scrollDuration } from "@/lib/motion";
 import type { IconType } from "react-icons";
 import { siteConfig, type SocialId } from "@/lib/site-config";
@@ -49,6 +51,7 @@ const footerLinks = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const isHome = usePathname() === "/";
   return (
     <footer className="relative isolate overflow-hidden bg-[#0b3d26] text-white-500 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
       <SectionDecor contained>
@@ -95,6 +98,7 @@ export function Footer() {
           <ul className="flex flex-wrap lg:flex-nowrap justify-center gap-x-1 text-sm">
             {footerLinks.map((link) => (
               <li key={link.id}>
+                {isHome ? (
                 <a
                   href={`#${link.id}`}
                   onClick={(e) => {
@@ -109,6 +113,14 @@ export function Footer() {
                 >
                   {link.label}
                 </a>
+                ) : (
+                  <Link
+                    href={`/#${link.id}`}
+                    className="inline-flex min-h-11 items-center px-1.5 underline underline-offset-4 hover:text-green-light"
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
