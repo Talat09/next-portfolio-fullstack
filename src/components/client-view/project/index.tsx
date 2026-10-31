@@ -9,6 +9,7 @@ import { Blob, DotGrid, Plus, SectionDecor } from "../decor";
 import AnimationWrapper from "../animation-wrapper";
 import ProjectCard from "../project-card";
 import { sortByOrderThenUpdated } from "@/lib/sort";
+import { buildProjectSlugs } from "@/lib/project";
 import { sectionHeading, sectionLabel } from "../typography";
 
 // How many projects are shown before "View All Projects" is clicked
@@ -22,6 +23,7 @@ const fadeUp: Variants = {
 export default function ClientProjectView({ data }: { data?: Project[] }) {
   const [showAll, setShowAll] = useState(false);
   const projects = sortByOrderThenUpdated(data);
+  const slugs = buildProjectSlugs(projects);
   const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
 
   function toggleShowAll() {
@@ -83,7 +85,7 @@ export default function ClientProjectView({ data }: { data?: Project[] }) {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 xl:gap-6"
         >
           {visibleProjects.map((item) => (
-            <ProjectCard key={item._id || item.name} item={item} />
+            <ProjectCard key={item._id || item.name} item={item} slug={slugs.get(item._id || item.name) || ""} />
           ))}
         </m.ul>
       </AnimationWrapper>

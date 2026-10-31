@@ -11,6 +11,8 @@ export function revalidatePortfolio(): void {
   try {
     revalidateTag(PORTFOLIO_TAG, { expire: 0 });
     revalidatePath("/");
+    revalidatePath("/projects/[slug]", "page");
+    revalidatePath("/sitemap.xml");
   } catch (e) {
     // Outside a Next.js request (e.g. unit tests) there is no cache to purge.
     console.error("[revalidate]", e instanceof Error ? e.message : e);

@@ -1,28 +1,11 @@
-﻿"use client";
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import { FaGlobe, FaGithub, FaCode, FaInfoCircle } from "react-icons/fa";
+import Link from "next/link";
+import { FaGlobe, FaGithub, FaCode, FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import type { Project } from "@/types";
-
-/** Cloudinary images go through next/image optimisation; other hosts are shown as-is. */
-function isCloudinary(url: string): boolean {
-  try {
-    return new URL(url).hostname === "res.cloudinary.com";
-  } catch {
-    return false;
-  }
-}
-
-// Loaded only when a visitor opens a project's details
-const ProjectDetailsModal = dynamic(() => import("../project-details-modal"), {
-  ssr: false,
-});
+import { isCloudinary, projectPath } from "@/lib/project";
 
 /** Project card used in the homepage projects grid */
-export default function ProjectCard({ item }: { item: Project }) {
-  const [open, setOpen] = useState(false);
-  const hasDetails = Boolean(item.description || item.keyFeatures);
+export default function ProjectCard({ item, slug }: { item: Project; slug: string }) {
   return (
     <li
       data-project-card
@@ -77,22 +60,12 @@ export default function ProjectCard({ item }: { item: Project }) {
             </li>
           ))}
       </ul>
-      {hasDetails ? (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-haspopup="dialog"
-          className="mt-auto mb-2 inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg text-[13px] font-semibold text-green-main hover:bg-green-tint transition-colors"
-        >
-          <FaInfoCircle aria-hidden="true" /> View details
-        </button>
-      ) : null}
-      <div className={`${hasDetails ? "" : "mt-auto "}grid grid-cols-2 gap-2`}>
+      <div className="mt-auto flex flex-wrap gap-2">
         <a
           href={item.website}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary min-h-11 px-2 gap-1.5 text-[13px] shadow-none"
+          className="btn-primary flex-1 min-w-20 min-h-11 px-2 gap-1.5 text-[13px] shadow-none whitespace-nowrap"
         >
           <FaGlobe aria-hidden="true" /> Website
         </a>
@@ -101,13 +74,21 @@ export default function ProjectCard({ item }: { item: Project }) {
             href={item.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline min-h-11 px-2 gap-1.5 text-[13px]"
+            className="btn-outline flex-1 min-w-20 min-h-11 px-2 gap-1.5 text-[13px] whitespace-nowrap"
           >
             <FaGithub aria-hidden="true" /> Github
           </a>
         ) : null}
+        {slug ? (
+          <Link
+            href={projectPath(slug)}
+            aria-label={`View details: ${item.name}`}
+            className="btn-outline flex-1 min-w-20 min-h-11 px-2 gap-1.5 text-[13px] whitespace-nowrap"
+          >
+            Details <FaArrowRight aria-hidden="true" className="w-3 h-3" />
+          </Link>
+        ) : null}
       </div>
-      {open ? <ProjectDetailsModal item={item} onClose={() => setOpen(false)} /> : null}
     </li>
   );
 }
