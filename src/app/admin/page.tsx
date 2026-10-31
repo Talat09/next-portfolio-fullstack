@@ -105,6 +105,9 @@ const initialEducationFormData: EducationData = {
 
 const initialProjectFormData: ProjectData = {
   name: "",
+  tagline: "",
+  description: "",
+  keyFeatures: "",
   website: "",
   technologies: "",
   github: "",
@@ -236,11 +239,14 @@ export default function AdminView() {
   // Tabs whose list items can be edited / deleted
   const editableTabs: Record<EditableTab, EditableTabConfig> = {
     project: {
-      fields: ["name", "website", "technologies", "github", "image"],
+      fields: ["name", "tagline", "description", "keyFeatures", "website", "technologies", "github", "image"],
       setFormData: (data) =>
         setProjectViewFormData(data as unknown as ProjectData),
       initialFormData: {
         name: initialProjectFormData.name,
+        tagline: "",
+        description: "",
+        keyFeatures: "",
         website: initialProjectFormData.website,
         technologies: initialProjectFormData.technologies,
         github: initialProjectFormData.github,

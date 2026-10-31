@@ -1,4 +1,7 @@
-﻿import { FaGlobe, FaGithub, FaCode } from "react-icons/fa";
+﻿"use client";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import { FaGlobe, FaGithub, FaCode, FaInfoCircle } from "react-icons/fa";
 import Image from "next/image";
 import type { Project } from "@/types";
 
@@ -11,8 +14,15 @@ function isCloudinary(url: string): boolean {
   }
 }
 
+// Loaded only when a visitor opens a project's details
+const ProjectDetailsModal = dynamic(() => import("../project-details-modal"), {
+  ssr: false,
+});
+
 /** Project card used in the homepage projects grid */
 export default function ProjectCard({ item }: { item: Project }) {
+  const [open, setOpen] = useState(false);
+  const hasDetails = Boolean(item.description || item.keyFeatures);
   return (
     <li
       data-project-card
@@ -42,9 +52,17 @@ export default function ProjectCard({ item }: { item: Project }) {
       <h3 className="text-lg lg:text-base xl:text-lg text-black-600 capitalize font-extrabold">
         {item.name}
       </h3>
+      {item.tagline ? (
+        <p className="mt-1 text-sm font-semibold text-green-main">{item.tagline}</p>
+      ) : null}
       <p className="text-[13px] mt-1 text-black-500">
         {item.createdAt ? item.createdAt.split("T")[0] : null}
       </p>
+      {item.description ? (
+        <p className="mt-3 text-sm leading-6 text-black-500 line-clamp-3 whitespace-pre-line">
+          {item.description}
+        </p>
+      ) : null}
       <ul className="flex flex-wrap gap-2 mt-4 mb-5">
         {item?.technologies
           ?.split(",")
@@ -59,7 +77,17 @@ export default function ProjectCard({ item }: { item: Project }) {
             </li>
           ))}
       </ul>
-      <div className="mt-auto grid grid-cols-2 gap-2">
+      {hasDetails ? (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-haspopup="dialog"
+          className="mt-auto mb-2 inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg text-[13px] font-semibold text-green-main hover:bg-green-tint transition-colors"
+        >
+          <FaInfoCircle aria-hidden="true" /> View details
+        </button>
+      ) : null}
+      <div className={`${hasDetails ? "" : "mt-auto "}grid grid-cols-2 gap-2`}>
         <a
           href={item.website}
           target="_blank"
@@ -79,6 +107,7 @@ export default function ProjectCard({ item }: { item: Project }) {
           </a>
         ) : null}
       </div>
+      {open ? <ProjectDetailsModal item={item} onClose={() => setOpen(false)} /> : null}
     </li>
   );
 }
